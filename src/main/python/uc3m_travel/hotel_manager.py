@@ -17,24 +17,24 @@ class HotelManager:
     def validate_room_type(self, room_type):
         """validates the room type value using regex"""
         myregex = re.compile(r"(SINGLE|DOUBLE|SUITE)")
-        res = myregex.fullmatch(room_type)
-        if not res:
+        check = myregex.fullmatch(room_type)
+        if not check:
             raise HotelManagementException("Invalid roomtype value")
         return room_type
 
     def validate_arrival_date(self, arrival_date):
         """validates the arrival date format  using regex"""
         myregex = re.compile(r"^(([0-2]\d|-3[0-1])\/(0\d|1[0-2])\/\d\d\d\d)$")
-        res = myregex.fullmatch(arrival_date)
-        if not res:
+        check = myregex.fullmatch(arrival_date)
+        if not check:
             raise HotelManagementException("Invalid date format")
         return arrival_date
 
     def validate_phonenumber(self, phone_number):
         """validates the phone number format  using regex"""
         myregex = re.compile(r"^(\+)[0-9]{9}")
-        res = myregex.fullmatch(phone_number)
-        if not res:
+        check = myregex.fullmatch(phone_number)
+        if not check:
             raise HotelManagementException("Invalid phone number format")
         return phone_number
     def validate_numdays(self,num_days):
