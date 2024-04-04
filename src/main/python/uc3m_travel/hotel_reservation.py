@@ -23,9 +23,9 @@ class HotelReservation:
         self.__reservation_date = datetime.timestamp(justnow)
         self.__name_surname = name_surname
         self.__phone_number = phone_number
-        self.__room_type = room_type
+        self.__room_type = self.validate_room_type(room_type)
         self.__num_days = num_days
-        self.__localizer =  hashlib.md5(str(self).encode()).hexdigest()
+        self.__localizer = hashlib.md5(str(self).encode()).hexdigest()
 
     def __str__(self):
         """return a json string with the elements required to calculate the localizer"""
@@ -88,3 +88,11 @@ class HotelReservation:
         if not checksum % 10 == 0:
             raise HotelManagementException("Invalid credit card number (not luhn)")
         return card_number
+
+    def validate_room_type(self, room_type):
+        """validates the room type value using regex"""
+        myregex = re.compile(r"(SINGLE|DOUBLE|SUITE)")
+        check = myregex.fullmatch(room_type)
+        if not check:
+            raise HotelManagementException("Invalid roomtype value")
+        return room_type
