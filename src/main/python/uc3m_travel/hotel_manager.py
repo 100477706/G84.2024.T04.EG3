@@ -14,14 +14,6 @@ class HotelManager:
     def __init__(self):
         pass
 
-    def validate_arrival_date(self, arrival_date):
-        """validates the arrival date format  using regex"""
-        myregex = re.compile(r"^(([0-2]\d|-3[0-1])\/(0\d|1[0-2])\/\d\d\d\d)$")
-        check = myregex.fullmatch(arrival_date)
-        if not check:
-            raise HotelManagementException("Invalid date format")
-        return arrival_date
-
     def validate_phonenumber(self, phone_number):
         """validates the phone number format  using regex"""
         myregex = re.compile(r"^(\+)[0-9]{9}")
@@ -114,7 +106,6 @@ class HotelManager:
 
 
         self.validate_name_surname(name_surname)
-        arrival_date = self.validate_arrival_date(arrival_date)
         num_days = self.validate_numdays(num_days)
         phone_number = self.validate_phonenumber(phone_number)
         my_reservation = HotelReservation(id_card=id_card,
