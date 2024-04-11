@@ -3,6 +3,7 @@ import hashlib
 from datetime import datetime
 import re
 from uc3m_travel.hotel_management_exception import HotelManagementException
+from uc3m_travel.attribute.attribute_idcard import IdCard
 
 class HotelReservation:
     """Class for representing hotel reservations"""
@@ -17,7 +18,7 @@ class HotelReservation:
                  num_days:int):
         """constructor of reservation objects"""
         self.__credit_card_number = self.validatecreditcard(credit_card_number)
-        self.__id_card = self.validate_idcard(id_card)
+        self.__id_card = IdCard(id_card).value
         justnow = datetime.utcnow()
         self.__arrival = self.validate_arrival_date(arrival)
         self.__reservation_date = datetime.timestamp(justnow)
