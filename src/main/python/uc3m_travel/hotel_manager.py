@@ -14,13 +14,6 @@ class HotelManager:
     def __init__(self):
         pass
 
-    def validate_phonenumber(self, phone_number):
-        """validates the phone number format  using regex"""
-        myregex = re.compile(r"^(\+)[0-9]{9}")
-        check = myregex.fullmatch(phone_number)
-        if not check:
-            raise HotelManagementException("Invalid phone number format")
-        return phone_number
     def validate_numdays(self,num_days):
         """validates the number of days"""
         try:
@@ -107,7 +100,6 @@ class HotelManager:
 
         self.validate_name_surname(name_surname)
         num_days = self.validate_numdays(num_days)
-        phone_number = self.validate_phonenumber(phone_number)
         my_reservation = HotelReservation(id_card=id_card,
                                           credit_card_number=credit_card,
                                           name_surname=name_surname,
