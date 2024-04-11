@@ -13,18 +13,6 @@ class HotelManager:
     """Class with all the methods for managing reservations and stays"""
     def __init__(self):
         pass
-
-    def validate_numdays(self,num_days):
-        """validates the number of days"""
-        try:
-            days = int(num_days)
-        except ValueError as ex:
-            raise HotelManagementException("Invalid num_days datatype") from ex
-        if (days < 1 or days > 10):
-            raise HotelManagementException("Numdays should be in the range 1-10")
-        return num_days
-
-
     @staticmethod
     def validate_dni( d ):
         """RETURN TRUE IF THE DNI IS RIGHT, OR FALSE IN OTHER CASE"""
@@ -99,7 +87,6 @@ class HotelManager:
 
 
         self.validate_name_surname(name_surname)
-        num_days = self.validate_numdays(num_days)
         my_reservation = HotelReservation(id_card=id_card,
                                           credit_card_number=credit_card,
                                           name_surname=name_surname,
