@@ -78,14 +78,6 @@ class HotelManager:
                          num_days:int)->str:
         """manges the hotel reservation: creates a reservation and saves it into a json file"""
 
-        r = r'^[0-9]{8}[A-Z]{1}$'
-        my_regex = re.compile(r)
-        if not my_regex.fullmatch(id_card):
-            raise HotelManagementException("Invalid IdCard format")
-        if not self.validate_dni(id_card):
-            raise HotelManagementException("Invalid IdCard letter")
-
-
         self.validate_name_surname(name_surname)
         my_reservation = HotelReservation(id_card=id_card,
                                           credit_card_number=credit_card,
@@ -149,12 +141,7 @@ class HotelManager:
         except KeyError as e:
             raise HotelManagementException("Error - Invalid Key in JSON") from e
 
-        r = r'^[0-9]{8}[A-Z]{1}$'
-        my_regex = re.compile(r)
-        if not my_regex.fullmatch(my_id_card):
-            raise HotelManagementException("Invalid IdCard format")
-        if not self.validate_dni(my_id_card):
-            raise HotelManagementException("Invalid IdCard letter")
+        self.validate_idcard(my_id_card)
 
         self.validate_localizer(my_localizer)
         # self.validate_localizer() hay que validar
@@ -241,6 +228,14 @@ class HotelManager:
             raise HotelManagementException("Wrong file  or file path") from ex
 
         return my_checkin.room_key
+
+    def validate_idcard(self, my_id_card):
+        r = r'^[0-9]{8}[A-Z]{1}$'
+        my_regex = re.compile(r)
+        if not my_regex.fullmatch(my_id_card):
+            raise HotelManagementException("Invalid IdCard format")
+        if not self.validate_dni(my_id_card):
+            raise HotelManagementException("Invalid IdCard letter")
 
     def guest_checkout(self, room_key:str)->bool:
         """manages the checkout of a guest"""
