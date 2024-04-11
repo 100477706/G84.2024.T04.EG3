@@ -53,7 +53,6 @@ class HotelManager:
                          num_days:int)->str:
         """manges the hotel reservation: creates a reservation and saves it into a json file"""
 
-        self.validate_name_surname(name_surname)
         my_reservation = HotelReservation(id_card=id_card,
                                           credit_card_number=credit_card,
                                           name_surname=name_surname,
@@ -91,13 +90,6 @@ class HotelManager:
             raise HotelManagementException("Wrong file  or file path") from ex
 
         return my_reservation.localizer
-
-    def validate_name_surname(self, guest_name):
-        r = r"^(?=^.{10,50}$)([a-zA-Z]+(\s[a-zA-Z]+)+)$"
-        myregex = re.compile(r)
-        regex_matches = myregex.fullmatch(guest_name)
-        if not regex_matches:
-            raise HotelManagementException("Invalid name format")
 
     def guest_arrival(self, file_input:str)->str:
         """manages the arrival of a guest with a reservation"""

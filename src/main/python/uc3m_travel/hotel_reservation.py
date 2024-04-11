@@ -21,7 +21,7 @@ class HotelReservation:
         justnow = datetime.utcnow()
         self.__arrival = self.validate_arrival_date(arrival)
         self.__reservation_date = datetime.timestamp(justnow)
-        self.__name_surname = name_surname
+        self.__name_surname = self.validate_name_surname(name_surname)
         self.__phone_number = self.validate_phonenumber(phone_number)
         self.__room_type = self.validate_room_type(room_type)
         self.__num_days = self.validate_numdays(num_days)
@@ -140,3 +140,10 @@ class HotelReservation:
         v = int(d[0:8])
         r = str(v % 23)
         return d[8] == c[r]
+    def validate_name_surname(self, guest_name):
+        r = r"^(?=^.{10,50}$)([a-zA-Z]+(\s[a-zA-Z]+)+)$"
+        myregex = re.compile(r)
+        regex_matches = myregex.fullmatch(guest_name)
+        if not regex_matches:
+            raise HotelManagementException("Invalid name format")
+        return guest_name
