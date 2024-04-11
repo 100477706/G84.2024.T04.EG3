@@ -41,31 +41,6 @@ class HotelManager:
             raise HotelManagementException("Invalid room key format")
         return l
 
-    def read_data_from_json(self, fi):
-        """reads the content of a json file with two fields: CreditCard and phoneNumber"""
-        try:
-            with open(fi, encoding='utf-8') as f:
-                json_data = json.load(f)
-        except FileNotFoundError as e:
-            raise HotelManagementException("Wrong file or file path") from e
-        except json.JSONDecodeError as e:
-            raise HotelManagementException("JSON Decode Error - Wrong JSON Format") from e
-        try:
-            c = json_data["CreditCard"]
-            p = json_data["phoneNumber"]
-            req = HotelReservation(id_card="12345678Z",
-                                   credit_card_number=c,
-                                   name_surname="John Doe",
-                                   phone_number=p,
-                                   room_type="single",
-                                   num_days=3,
-                                   arrival="20/01/2024")
-        except KeyError as e:
-            raise HotelManagementException("JSON Decode Error - Invalid JSON Key") from e
-        if not self.validatecreditcard(c):
-            raise HotelManagementException("Invalid credit card number")
-        # Close the file
-        return req
 
     # pylint: disable=too-many-arguments
     def room_reservation(self,
