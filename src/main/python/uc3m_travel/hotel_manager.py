@@ -87,11 +87,7 @@ class HotelManager:
                 raise HotelManagementException("This ID card has another reservation")
 
     def save_json_store(self, data_list, file_store):
-        try:
-            with open(file_store, "w", encoding="utf-8", newline="") as file:
-                json.dump(data_list, file, indent=2)
-        except FileNotFoundError as exception:
-            raise HotelManagementException("Wrong file  or file path") from exception
+        self.save_checkout_store(file_store, data_list)
 
     def load_json_store(self, file_store):
         try:
@@ -263,13 +259,16 @@ class HotelManager:
 
         room_key_list.append(room_checkout)
 
+        self.save_checkout_store(file_store_checkout, room_key_list)
+
+        return True
+
+    def save_checkout_store(self, file_store_checkout, room_key_list):
         try:
             with open(file_store_checkout, "w", encoding="utf-8", newline="") as file:
                 json.dump(room_key_list, file, indent=2)
         except FileNotFoundError as exception:
             raise HotelManagementException("Wrong file  or file path") from exception
-
-        return True
 
     def find_in_list_checkout(self, room_key, room_key_list):
         found = False
