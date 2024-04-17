@@ -161,9 +161,7 @@ class HotelManager:
         room_key_list = self.load_json_checkin_store2(file_store)
 
         # comprobar que no he hecho otro ckeckin antes
-        for item in room_key_list:
-            if my_checkin.room_key == item["_HotelStay__room_key"]:
-                raise HotelManagementException ("ckeckin  ya realizado")
+        self.find_in_list_checkin2(my_checkin, room_key_list)
 
         #añado los datos de mi reserva a la lista , a lo que hubiera
         self.add_item_list(room_key_list, my_checkin)
@@ -171,6 +169,11 @@ class HotelManager:
         self.save_json_store(room_key_list, file_store)
 
         return my_checkin.room_key
+
+    def find_in_list_checkin2(self, my_checkin, room_key_list):
+        for item in room_key_list:
+            if my_checkin.room_key == item["_HotelStay__room_key"]:
+                raise HotelManagementException("ckeckin  ya realizado")
 
     def load_json_checkin_store2(self, file_store):
         try:
