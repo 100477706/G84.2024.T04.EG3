@@ -76,13 +76,16 @@ class HotelManager:
         data_list.append(my_reservation.__dict__)
 
         #escribo la lista en el fichero
+        self.write_json_store(data_list, file_store)
+
+        return my_reservation.localizer
+
+    def write_json_store(self, data_list, file_store):
         try:
             with open(file_store, "w", encoding="utf-8", newline="") as file:
                 json.dump(data_list, file, indent=2)
         except FileNotFoundError as exception:
             raise HotelManagementException("Wrong file  or file path") from exception
-
-        return my_reservation.localizer
 
     def load_json_store(self, file_store):
         try:
@@ -191,11 +194,7 @@ class HotelManager:
         #añado los datos de mi reserva a la lista , a lo que hubiera
         room_key_list.append(my_checkin.__dict__)
 
-        try:
-            with open(file_store, "w", encoding="utf-8", newline="") as file:
-                json.dump(room_key_list, file, indent=2)
-        except FileNotFoundError as exception:
-            raise HotelManagementException("Wrong file  or file path") from exception
+        self.write_json_store(room_key_list, file_store)
 
         return my_checkin.room_key
 
@@ -250,10 +249,6 @@ class HotelManager:
 
         room_key_list.append(room_checkout)
 
-        try:
-            with open(file_store_checkout, "w", encoding="utf-8", newline="") as file:
-                json.dump(room_key_list, file, indent=2)
-        except FileNotFoundError as exception:
-            raise HotelManagementException("Wrong file  or file path") from exception
+        self.write_json_store(room_key_list, file_store_checkout)
 
         return True
