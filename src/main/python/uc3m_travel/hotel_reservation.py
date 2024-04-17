@@ -71,8 +71,8 @@ class HotelReservation:
         # RETURN TRUE IF THE GUID IS RIGHT, OR FALSE IN OTHER CASE
 
         myregex = re.compile(r"^[0-9]{16}")
-        res = myregex.fullmatch(card_number)
-        if not res:
+        result = myregex.fullmatch(card_number)
+        if not result:
             raise HotelManagementException("Invalid credit card format")
         def digits_of(n):
             return [int(d) for d in str(n)]
