@@ -67,20 +67,23 @@ class HotelManager:
         data_list = self.load_json_store(file_store)
 
         #compruebo que esta reserva no esta en la lista
-        for item in data_list:
-            if my_reservation.localizer == item["_HotelReservation__localizer"]:
-                raise HotelManagementException ("Reservation already exists")
-            if my_reservation.id_card == item["_HotelReservation__id_card"]:
-                raise HotelManagementException("This ID card has another reservation")
+        self.find_item_in_store(data_list, my_reservation)
         #añado los datos de mi reserva a la lista , a lo que hubiera
         data_list.append(my_reservation.__dict__)
 
         #escribo la lista en el fichero
-        self.write_json_store(data_list, file_store)
+        self.save_json_store(data_list, file_store)
 
         return my_reservation.localizer
 
-    def write_json_store(self, data_list, file_store):
+    def find_item_in_store(self, data_list, my_reservation):
+        for item in data_list:
+            if my_reservation.localizer == item["_HotelReservation__localizer"]:
+                raise HotelManagementException("Reservation already exists")
+            if my_reservation.id_card == item["_HotelReservation__id_card"]:
+                raise HotelManagementException("This ID card has another reservation")
+
+    def save_json_store(self, data_list, file_store):
         try:
             with open(file_store, "w", encoding="utf-8", newline="") as file:
                 json.dump(data_list, file, indent=2)
@@ -194,7 +197,7 @@ class HotelManager:
         #añado los datos de mi reserva a la lista , a lo que hubiera
         room_key_list.append(my_checkin.__dict__)
 
-        self.write_json_store(room_key_list, file_store)
+        self.save_json_store(room_key_list, file_store)
 
         return my_checkin.room_key
 
@@ -205,6 +208,9 @@ class HotelManager:
             raise HotelManagementException("Invalid IdCard format")
         if not self.validate_dni(my_id_card):
             raise HotelManagementException("Invalid IdCard letter")
+
+
+
 
     def guest_checkout(self, room_key: str)->bool:
         """manages the checkout of a guest"""
@@ -249,6 +255,10 @@ class HotelManager:
 
         room_key_list.append(room_checkout)
 
-        self.write_json_store(room_key_list, file_store_checkout)
+        try:
+            with open(file_store_checkout, "w", encoding="utf-8", newline="") as file:
+                json.dump(room_key_list, file, indent=2)
+        except FileNotFoundError as exception:
+            raise HotelManagementException("Wrong file  or file path") from exception
 
         return True
