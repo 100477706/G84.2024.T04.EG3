@@ -26,8 +26,8 @@ class HotelManager:
 
     def validate_localizer(self, l):
         """validates the localizer format using a regex"""
-        r = r'^[a-fA-F0-9]{32}$'
-        myregex = re.compile(r)
+        configuracion = r'^[a-fA-F0-9]{32}$'
+        myregex = re.compile(configuracion)
         if not myregex.fullmatch(l):
             raise HotelManagementException("Invalid localizer")
         return l
@@ -203,7 +203,7 @@ class HotelManager:
         if not self.validate_dni(my_id_card):
             raise HotelManagementException("Invalid IdCard letter")
 
-    def guest_checkout(self, room_key:str)->bool:
+    def guest_checkout(self, room_key: str)->bool:
         """manages the checkout of a guest"""
         self.validate_roomkey(room_key)
         #check thawt the roomkey is stored in the checkins file
