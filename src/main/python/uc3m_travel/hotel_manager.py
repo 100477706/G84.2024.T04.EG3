@@ -126,23 +126,9 @@ class HotelManager:
         # debe existir para hacer el checkin
         store_list = self.save_json_ckeckout_store(file_store)
         # compruebo si esa reserva esta en el almacen
-        found = False
-        for item in store_list:
-            if my_localizer == item["_HotelReservation__localizer"]:
-                reservation_days = item["_HotelReservation__num_days"]
-                reservation_room_type = item["_HotelReservation__room_type"]
-                reservation_date_timestamp = item["_HotelReservation__reservation_date"]
-                reservation_credit_card = item["_HotelReservation__credit_card_number"]
-                reservation_date_arrival = item["_HotelReservation__arrival"]
-                reservation_name = item["_HotelReservation__name_surname"]
-                reservation_phone = item["_HotelReservation__phone_number"]
-                reservation_id_card = item["_HotelReservation__id_card"]
-                found = True
-
-        if not found:
-            raise HotelManagementException("Error: localizer not found")
-        if my_id_card != reservation_id_card:
-            raise HotelManagementException("Error: Localizer is not correct for this IdCard")
+        reservation_credit_card, reservation_date_arrival, reservation_date_timestamp, \
+        reservation_days, reservation_id_card, reservation_name, reservation_phone, \
+        reservation_room_type = self.find_in_list_checkin(my_id_card, my_localizer, store_list)
         # regenrar clave y ver si coincide
         reservation_date = datetime.fromtimestamp(reservation_date_timestamp)
 
@@ -191,6 +177,25 @@ class HotelManager:
         self.save_json_store(room_key_list, file_store)
 
         return my_checkin.room_key
+
+    def find_in_list_checkin(self, my_id_card, my_localizer, store_list):
+        found = False
+        for item in store_list:
+            if my_localizer == item["_HotelReservation__localizer"]:
+                reservation_days = item["_HotelReservation__num_days"]
+                reservation_room_type = item["_HotelReservation__room_type"]
+                reservation_date_timestamp = item["_HotelReservation__reservation_date"]
+                reservation_credit_card = item["_HotelReservation__credit_card_number"]
+                reservation_date_arrival = item["_HotelReservation__arrival"]
+                reservation_name = item["_HotelReservation__name_surname"]
+                reservation_phone = item["_HotelReservation__phone_number"]
+                reservation_id_card = item["_HotelReservation__id_card"]
+                found = True
+        if not found:
+            raise HotelManagementException("Error: localizer not found")
+        if my_id_card != reservation_id_card:
+            raise HotelManagementException("Error: Localizer is not correct for this IdCard")
+        return reservation_credit_card, reservation_date_arrival, reservation_date_timestamp, reservation_days, reservation_id_card, reservation_name, reservation_phone, reservation_room_type
 
     def save_json_ckeckout_store(self, file_store):
         try:
