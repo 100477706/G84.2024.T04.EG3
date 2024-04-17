@@ -211,10 +211,10 @@ class HotelManager:
         try:
             with open(file_store, "r", encoding="utf-8", newline="") as file:
                 room_key_list = json.load(file)
-        except FileNotFoundError as ex:
-            raise HotelManagementException("Error: store checkin not found") from ex
-        except json.JSONDecodeError as ex:
-            raise HotelManagementException("JSON Decode Error - Wrong JSON Format") from ex
+        except FileNotFoundError as exception:
+            raise HotelManagementException("Error: store checkin not found") from exception
+        except json.JSONDecodeError as exception:
+            raise HotelManagementException("JSON Decode Error - Wrong JSON Format") from exception
 
         # comprobar que esa room_key es la que me han dado
         found = False
@@ -233,10 +233,10 @@ class HotelManager:
         try:
             with open(file_store_checkout, "r", encoding="utf-8", newline="") as file:
                 room_key_list = json.load(file)
-        except FileNotFoundError as ex:
+        except FileNotFoundError as exception:
             room_key_list = []
-        except json.JSONDecodeError as ex:
-            raise HotelManagementException("JSON Decode Error - Wrong JSON Format") from ex
+        except json.JSONDecodeError as exception:
+            raise HotelManagementException("JSON Decode Error - Wrong JSON Format") from exception
 
         for checkout in room_key_list:
             if checkout["room_key"] == room_key:
@@ -249,7 +249,7 @@ class HotelManager:
         try:
             with open(file_store_checkout, "w", encoding="utf-8", newline="") as file:
                 json.dump(room_key_list, file, indent=2)
-        except FileNotFoundError as ex:
-            raise HotelManagementException("Wrong file  or file path") from ex
+        except FileNotFoundError as exception:
+            raise HotelManagementException("Wrong file  or file path") from exception
 
         return True
