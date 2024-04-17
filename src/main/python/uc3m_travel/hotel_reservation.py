@@ -62,6 +62,13 @@ class HotelReservation:
         """Returns the md5 signature"""
         return self.__localizer
 
+    def validate_localizer(self, localizer):
+        """validates the localizer format using a regex"""
+        configuracion = r'^[a-fA-F0-9]{32}$'
+        myregex = re.compile(configuracion)
+        if not myregex.fullmatch(localizer):
+            raise HotelManagementException("Invalid localizer")
+        return localizer
     def validatecreditcard(self, card_number):
         """validates the credit card number using luhn altorithm"""
         #taken form
