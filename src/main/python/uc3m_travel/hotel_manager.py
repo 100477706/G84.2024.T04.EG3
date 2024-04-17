@@ -201,7 +201,9 @@ class HotelManager:
             raise HotelManagementException("Error: localizer not found")
         if my_id_card != reservation_id_card:
             raise HotelManagementException("Error: Localizer is not correct for this IdCard")
-        return reservation_credit_card, reservation_date_arrival, reservation_date_timestamp, reservation_days, reservation_id_card, reservation_name, reservation_phone, reservation_room_type
+        return reservation_credit_card, reservation_date_arrival, reservation_date_timestamp, \
+               reservation_days, reservation_id_card, reservation_name, reservation_phone, \
+               reservation_room_type
 
     def save_json_ckeckout_store(self, file_store):
         try:
