@@ -64,13 +64,7 @@ class HotelManager:
         file_store = JSON_FILES_PATH + "store_reservation.json"
 
         #leo los datos del fichero si existe , y si no existe creo una lista vacia
-        try:
-            with open(file_store, "r", encoding="utf-8", newline="") as file:
-                data_list = json.load(file)
-        except FileNotFoundError:
-            data_list = []
-        except json.JSONDecodeError as exception:
-            raise HotelManagementException ("JSON Decode Error - Wrong JSON Format") from exception
+        data_list = self.load_json_store(file_store)
 
         #compruebo que esta reserva no esta en la lista
         for item in data_list:
@@ -89,6 +83,16 @@ class HotelManager:
             raise HotelManagementException("Wrong file  or file path") from exception
 
         return my_reservation.localizer
+
+    def load_json_store(self, file_store):
+        try:
+            with open(file_store, "r", encoding="utf-8", newline="") as file:
+                data_list = json.load(file)
+        except FileNotFoundError:
+            data_list = []
+        except json.JSONDecodeError as exception:
+            raise HotelManagementException("JSON Decode Error - Wrong JSON Format") from exception
+        return data_list
 
     def guest_arrival(self, file_input: str)->str:
         """manages the arrival of a guest with a reservation"""
