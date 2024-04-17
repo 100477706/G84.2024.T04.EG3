@@ -69,12 +69,15 @@ class HotelManager:
         #compruebo que esta reserva no esta en la lista
         self.find_item_in_store(data_list, my_reservation)
         #añado los datos de mi reserva a la lista , a lo que hubiera
-        data_list.append(my_reservation.__dict__)
+        self.add_item_list(data_list, my_reservation)
 
         #escribo la lista en el fichero
         self.save_json_store(data_list, file_store)
 
         return my_reservation.localizer
+
+    def add_item_list(self, data_list, my_reservation):
+        data_list.append(my_reservation.__dict__)
 
     def find_item_in_store(self, data_list, my_reservation):
         for item in data_list:
@@ -195,7 +198,7 @@ class HotelManager:
                 raise HotelManagementException ("ckeckin  ya realizado")
 
         #añado los datos de mi reserva a la lista , a lo que hubiera
-        room_key_list.append(my_checkin.__dict__)
+        self.add_item_list(room_key_list, my_checkin)
 
         self.save_json_store(room_key_list, file_store)
 
