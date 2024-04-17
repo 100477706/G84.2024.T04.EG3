@@ -196,8 +196,8 @@ class HotelManager:
         return my_checkin.room_key
 
     def validate_idcard(self, my_id_card):
-        r = r'^[0-9]{8}[A-Z]{1}$'
-        my_regex = re.compile(r)
+        configuracion = r'^[0-9]{8}[A-Z]{1}$'
+        my_regex = re.compile(configuracion)
         if not my_regex.fullmatch(my_id_card):
             raise HotelManagementException("Invalid IdCard format")
         if not self.validate_dni(my_id_card):
