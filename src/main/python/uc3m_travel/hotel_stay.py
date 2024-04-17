@@ -95,3 +95,10 @@ class HotelStay():
         if not myregex.fullmatch(localizer):
             raise HotelManagementException("Invalid localizer")
         return localizer
+    def validate_roomkey(self, roomkey):
+        """validates the roomkey format using a regex"""
+        configuracion = r'^[a-fA-F0-9]{64}$'
+        myregex = re.compile(configuracion)
+        if not myregex.fullmatch(roomkey):
+            raise HotelManagementException("Invalid room key format")
+        return roomkey
