@@ -69,8 +69,8 @@ class HotelManager:
                 data_list = json.load(file)
         except FileNotFoundError:
             data_list = []
-        except json.JSONDecodeError as ex:
-            raise HotelManagementException ("JSON Decode Error - Wrong JSON Format") from ex
+        except json.JSONDecodeError as exception:
+            raise HotelManagementException ("JSON Decode Error - Wrong JSON Format") from exception
 
         #compruebo que esta reserva no esta en la lista
         for item in data_list:
@@ -85,8 +85,8 @@ class HotelManager:
         try:
             with open(file_store, "w", encoding="utf-8", newline="") as file:
                 json.dump(data_list, file, indent=2)
-        except FileNotFoundError as ex:
-            raise HotelManagementException("Wrong file  or file path") from ex
+        except FileNotFoundError as exception:
+            raise HotelManagementException("Wrong file  or file path") from exception
 
         return my_reservation.localizer
 
