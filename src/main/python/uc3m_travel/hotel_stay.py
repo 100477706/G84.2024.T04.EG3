@@ -87,3 +87,11 @@ class HotelStay():
         digits = int(dni[0:8])
         letter = str(digits % 23)
         return dni[8] == characters[letter]
+
+    def validate_localizer(self, localizer):
+        """validates the localizer format using a regex"""
+        configuracion = r'^[a-fA-F0-9]{32}$'
+        myregex = re.compile(configuracion)
+        if not myregex.fullmatch(localizer):
+            raise HotelManagementException("Invalid localizer")
+        return localizer
