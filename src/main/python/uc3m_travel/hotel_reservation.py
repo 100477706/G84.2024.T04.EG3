@@ -114,7 +114,7 @@ class HotelReservation:
             raise HotelManagementException("Invalid phone number format")
         return phone_number
 
-    def validate_numdays(self,num_days):
+    def validate_numdays(self, num_days):
         """validates the number of days"""
         try:
             days = int(num_days)
