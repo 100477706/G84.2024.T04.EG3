@@ -74,8 +74,8 @@ class HotelReservation:
         result = myregex.fullmatch(card_number)
         if not result:
             raise HotelManagementException("Invalid credit card format")
-        def digits_of(n):
-            return [int(d) for d in str(n)]
+        def digits_of(number):
+            return [int(valor) for valor in str(number)]
 
 
         digits = digits_of(card_number)
