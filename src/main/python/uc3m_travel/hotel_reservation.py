@@ -57,7 +57,6 @@ class HotelReservation:
     def id_card(self, value):
         self.__id_card = value
 
-
     @property
     def localizer(self):
         """Returns the md5 signature"""

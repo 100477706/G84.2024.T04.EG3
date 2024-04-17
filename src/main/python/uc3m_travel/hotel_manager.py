@@ -34,8 +34,8 @@ class HotelManager:
 
     def validate_roomkey(self, l):
         """validates the roomkey format using a regex"""
-        r = r'^[a-fA-F0-9]{64}$'
-        myregex = re.compile(r)
+        configuracion = r'^[a-fA-F0-9]{64}$'
+        myregex = re.compile(configuracion)
         if not myregex.fullmatch(l):
             raise HotelManagementException("Invalid room key format")
         return l
