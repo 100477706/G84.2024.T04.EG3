@@ -21,8 +21,8 @@ class HotelManager:
              "12": "N", "13": "J", "14": "Z", "15": "S", "16": "Q", "17": "V",
              "18": "H", "19": "L", "20": "C", "21": "K", "22": "E"}
         digits = int(dni[0:8])
-        r = str(digits % 23)
-        return dni[8] == characters[r]
+        letter = str(digits % 23)
+        return dni[8] == characters[letter]
 
     def validate_localizer(self, l):
         """validates the localizer format using a regex"""
