@@ -32,13 +32,13 @@ class HotelManager:
             raise HotelManagementException("Invalid localizer")
         return localizer
 
-    def validate_roomkey(self, l):
+    def validate_roomkey(self, roomkey):
         """validates the roomkey format using a regex"""
         configuracion = r'^[a-fA-F0-9]{64}$'
         myregex = re.compile(configuracion)
-        if not myregex.fullmatch(l):
+        if not myregex.fullmatch(roomkey):
             raise HotelManagementException("Invalid room key format")
-        return l
+        return roomkey
 
 
     # pylint: disable=too-many-arguments
