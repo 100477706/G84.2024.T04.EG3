@@ -158,13 +158,7 @@ class HotelManager:
         file_store = JSON_FILES_PATH + "store_check_in.json"
 
         # leo los datos del fichero si existe , y si no existe creo una lista vacia
-        try:
-            with open(file_store, "r", encoding="utf-8", newline="") as file:
-                room_key_list = json.load(file)
-        except FileNotFoundError as exception:
-            room_key_list = []
-        except json.JSONDecodeError as exception:
-            raise HotelManagementException("JSON Decode Error - Wrong JSON Format") from exception
+        room_key_list = self.load_json_checkin_store2(file_store)
 
         # comprobar que no he hecho otro ckeckin antes
         for item in room_key_list:
@@ -177,6 +171,16 @@ class HotelManager:
         self.save_json_store(room_key_list, file_store)
 
         return my_checkin.room_key
+
+    def load_json_checkin_store2(self, file_store):
+        try:
+            with open(file_store, "r", encoding="utf-8", newline="") as file:
+                room_key_list = json.load(file)
+        except FileNotFoundError as exception:
+            room_key_list = []
+        except json.JSONDecodeError as exception:
+            raise HotelManagementException("JSON Decode Error - Wrong JSON Format") from exception
+        return room_key_list
 
     def find_in_list_checkin(self, my_id_card, my_localizer, store_list):
         found = False
@@ -255,13 +259,7 @@ class HotelManager:
             raise HotelManagementException("Error: today is not the departure day")
 
         file_store_checkout = JSON_FILES_PATH + "store_check_out.json"
-        try:
-            with open(file_store_checkout, "r", encoding="utf-8", newline="") as file:
-                room_key_list = json.load(file)
-        except FileNotFoundError as exception:
-            room_key_list = []
-        except json.JSONDecodeError as exception:
-            raise HotelManagementException("JSON Decode Error - Wrong JSON Format") from exception
+        room_key_list = self.load_json_checkin_store2(file_store_checkout)
 
         for checkout in room_key_list:
             if checkout["room_key"] == room_key:
