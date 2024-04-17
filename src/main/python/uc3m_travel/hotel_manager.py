@@ -105,13 +105,7 @@ class HotelManager:
 
     def guest_arrival(self, file_input: str)->str:
         """manages the arrival of a guest with a reservation"""
-        try:
-            with open(file_input, "r", encoding="utf-8", newline="") as file:
-                input_list = json.load(file)
-        except FileNotFoundError as exception:
-            raise HotelManagementException ("Error: file input not found") from exception
-        except json.JSONDecodeError as exception:
-            raise HotelManagementException ("JSON Decode Error - Wrong JSON Format") from exception
+        input_list = self.load_json_checkin_store(file_input)
 
         # comprobar valores del fichero
         try:
@@ -203,6 +197,16 @@ class HotelManager:
         self.save_json_store(room_key_list, file_store)
 
         return my_checkin.room_key
+
+    def load_json_checkin_store(self, file_input):
+        try:
+            with open(file_input, "r", encoding="utf-8", newline="") as file:
+                input_list = json.load(file)
+        except FileNotFoundError as exception:
+            raise HotelManagementException("Error: file input not found") from exception
+        except json.JSONDecodeError as exception:
+            raise HotelManagementException("JSON Decode Error - Wrong JSON Format") from exception
+        return input_list
 
     def validate_idcard(self, my_id_card):
         configuracion = r'^[0-9]{8}[A-Z]{1}$'
