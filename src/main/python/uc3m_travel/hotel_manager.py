@@ -124,13 +124,7 @@ class HotelManager:
 
         #leo los datos del fichero , si no existe deber dar error porque el almacen de reservaa
         # debe existir para hacer el checkin
-        try:
-            with open(file_store, "r", encoding="utf-8", newline="") as file:
-                store_list = json.load(file)
-        except FileNotFoundError as exception:
-            raise HotelManagementException ("Error: store reservation not found") from exception
-        except json.JSONDecodeError as exception:
-            raise HotelManagementException ("JSON Decode Error - Wrong JSON Format") from exception
+        store_list = self.save_json_ckeckout_store(file_store)
         # compruebo si esa reserva esta en el almacen
         found = False
         for item in store_list:
@@ -197,6 +191,16 @@ class HotelManager:
         self.save_json_store(room_key_list, file_store)
 
         return my_checkin.room_key
+
+    def save_json_ckeckout_store(self, file_store):
+        try:
+            with open(file_store, "r", encoding="utf-8", newline="") as file:
+                store_list = json.load(file)
+        except FileNotFoundError as exception:
+            raise HotelManagementException("Error: store reservation not found") from exception
+        except json.JSONDecodeError as exception:
+            raise HotelManagementException("JSON Decode Error - Wrong JSON Format") from exception
+        return store_list
 
     def load_json_checkin_store(self, file_input):
         try:
