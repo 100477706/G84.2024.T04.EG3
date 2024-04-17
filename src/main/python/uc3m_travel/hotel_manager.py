@@ -104,8 +104,8 @@ class HotelManager:
         try:
             my_localizer = input_list["Localizer"]
             my_id_card = input_list["IdCard"]
-        except KeyError as e:
-            raise HotelManagementException("Error - Invalid Key in JSON") from e
+        except KeyError as exception:
+            raise HotelManagementException("Error - Invalid Key in JSON") from exception
 
         self.validate_idcard(my_id_card)
 
