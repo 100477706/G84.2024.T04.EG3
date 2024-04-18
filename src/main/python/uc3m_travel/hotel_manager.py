@@ -142,7 +142,8 @@ class HotelManager:
         file_store = JSON_FILES_PATH + "store_check_in.json"
 
         # leo los datos del fichero si existe , y si no existe creo una lista vacia
-        room_key_list = self.load_json_checkin_store2(file_store)
+        my_store_resersvation = JsonStore()
+        room_key_list = my_store_resersvation.load_json_store(file_store)
 
         # comprobar que no he hecho otro ckeckin antes
         self.find_in_list_checkin2(my_checkin, room_key_list)
@@ -239,7 +240,8 @@ class HotelManager:
             raise HotelManagementException("Error: today is not the departure day")
 
         file_store_checkout = JSON_FILES_PATH + "store_check_out.json"
-        room_key_list = self.load_json_checkin_store2(file_store_checkout)
+        my_store_resersvation = JsonStore()
+        room_key_list = my_store_resersvation.load_json_store(file_store_checkout)
 
         for checkout in room_key_list:
             if checkout["room_key"] == room_key:
