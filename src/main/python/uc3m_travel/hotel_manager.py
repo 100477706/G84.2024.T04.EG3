@@ -150,16 +150,6 @@ class HotelManager:
             if my_checkin.room_key == item["_HotelStay__room_key"]:
                 raise HotelManagementException("ckeckin  ya realizado")
 
-    def load_json_checkin_store2(self, file_store):
-        try:
-            with open(file_store, "r", encoding="utf-8", newline="") as file:
-                room_key_list = json.load(file)
-        except FileNotFoundError as exception:
-            room_key_list = []
-        except json.JSONDecodeError as exception:
-            raise HotelManagementException("JSON Decode Error - Wrong JSON Format") from exception
-        return room_key_list
-
     def find_in_list_checkin(self, my_id_card, my_localizer, store_list):
         found = False
         for item in store_list:
@@ -209,6 +199,7 @@ class HotelManager:
         self.validate_roomkey(room_key)
         #check thawt the roomkey is stored in the checkins file
         file_store = JSON_FILES_PATH + "store_check_in.json"
+
         room_key_list = self.load_json_checkout_file(file_store)
 
         # comprobar que esa room_key es la que me han dado
