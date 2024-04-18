@@ -79,7 +79,8 @@ class HotelManager:
         self.add_item_list(data_list, my_reservation)
 
         #escribo la lista en el fichero
-        self.save_json_store(file_store, data_list)
+        save_list = JsonStore()
+        save_list.save_json_store(file_store, data_list)
 
         return my_reservation.localizer
 
@@ -170,8 +171,8 @@ class HotelManager:
 
         #añado los datos de mi reserva a la lista , a lo que hubiera
         self.add_item_list(room_key_list, my_checkin)
-
-        self.save_json_store(file_store , room_key_list)
+        save_list = JsonStore()
+        save_list.save_json_store(file_store , room_key_list)
 
         return my_checkin.room_key
 
@@ -267,7 +268,9 @@ class HotelManager:
 
         room_key_list.append(room_checkout)
 
-        self.save_json_store(file_store_checkout, room_key_list)
+        save_list = JsonStore()
+
+        save_list.save_json_store(file_store_checkout, room_key_list)
 
         return True
 
