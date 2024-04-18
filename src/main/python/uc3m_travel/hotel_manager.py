@@ -79,7 +79,7 @@ class HotelManager:
         self.add_item_list(data_list, my_reservation)
 
         #escribo la lista en el fichero
-        self.save_json_store(data_list, file_store)
+        self.save_json_store(file_store, data_list)
 
         return my_reservation.localizer
 
@@ -93,8 +93,7 @@ class HotelManager:
             if my_reservation.id_card == item["_HotelReservation__id_card"]:
                 raise HotelManagementException("This ID card has another reservation")
 
-    def save_json_store(self, data_list, file_store):
-        self.save_checkout_store(file_store, data_list)
+
 
     def load_json_store(self, file_store):
         try:
@@ -172,7 +171,7 @@ class HotelManager:
         #añado los datos de mi reserva a la lista , a lo que hubiera
         self.add_item_list(room_key_list, my_checkin)
 
-        self.save_json_store(room_key_list, file_store)
+        self.save_json_store(file_store , room_key_list)
 
         return my_checkin.room_key
 
@@ -268,11 +267,11 @@ class HotelManager:
 
         room_key_list.append(room_checkout)
 
-        self.save_checkout_store(file_store_checkout, room_key_list)
+        self.save_json_store(file_store_checkout, room_key_list)
 
         return True
 
-    def save_checkout_store(self, file_store_checkout, room_key_list):
+    def save_json_store(self, file_store_checkout, room_key_list):
         try:
             with open(file_store_checkout, "w", encoding="utf-8", newline="") as file:
                 json.dump(room_key_list, file, indent=2)
