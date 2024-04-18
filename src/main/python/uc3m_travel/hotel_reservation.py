@@ -7,6 +7,7 @@ from uc3m_travel.attribute.attribute_idcard import IdCard
 from uc3m_travel.attribute.attribute_name_surname import NameSurname
 from uc3m_travel.attribute.attribute_phone_number import PhoneNumber
 from uc3m_travel.attribute.attribute_arrival_date import ArrivalDate
+from uc3m_travel.attribute.attribute_room_type import RoomType
 
 class HotelReservation:
     """Class for representing hotel reservations"""
@@ -27,7 +28,7 @@ class HotelReservation:
         self.__reservation_date = datetime.timestamp(justnow)
         self.__name_surname = NameSurname(name_surname).value
         self.__phone_number = PhoneNumber(phone_number).value
-        self.__room_type = self.validate_room_type(room_type)
+        self.__room_type = RoomType(room_type).value
         self.__num_days = self.validate_numdays(num_days)
         self.__localizer = hashlib.md5(str(self).encode()).hexdigest()
 
@@ -98,14 +99,6 @@ class HotelReservation:
         if not checksum % 10 == 0:
             raise HotelManagementException("Invalid credit card number (not luhn)")
         return card_number
-
-    def validate_room_type(self, room_type):
-        """validates the room type value using regex"""
-        myregex = re.compile(r"(SINGLE|DOUBLE|SUITE)")
-        check = myregex.fullmatch(room_type)
-        if not check:
-            raise HotelManagementException("Invalid roomtype value")
-        return room_type
 
     def validate_numdays(self, num_days):
         """validates the number of days"""
