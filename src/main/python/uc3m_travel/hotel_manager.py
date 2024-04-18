@@ -8,6 +8,7 @@ from uc3m_travel.hotel_stay import HotelStay
 from uc3m_travel.hotel_management_config import JSON_FILES_PATH
 from freezegun import freeze_time
 from uc3m_travel.store.json_store import JsonStore
+from uc3m_travel.attribute.attribute_localizer import Localizer
 
 
 
@@ -26,14 +27,6 @@ class HotelManager:
         letter = str(digits % 23)
         return dni[8] == characters[letter]
 
-    def validate_localizer(self, localizer):
-        """validates the localizer format using a regex"""
-        configuracion = r'^[a-fA-F0-9]{32}$'
-        myregex = re.compile(configuracion)
-        if not myregex.fullmatch(localizer):
-            raise HotelManagementException("Invalid localizer")
-        return localizer
-
     def validate_roomkey(self, roomkey):
         """validates the roomkey format using a regex"""
         configuracion = r'^[a-fA-F0-9]{64}$'
@@ -41,6 +34,7 @@ class HotelManager:
         if not myregex.fullmatch(roomkey):
             raise HotelManagementException("Invalid room key format")
         return roomkey
+
 
 
     # pylint: disable=too-many-arguments
@@ -100,8 +94,8 @@ class HotelManager:
 
         self.validate_idcard(my_id_card)
 
-        self.validate_localizer(my_localizer)
-        # self.validate_localizer() hay que validar
+        #Validamos el localizer
+        Localizer(my_localizer)
 
         #buscar en almacen
         file_store = JSON_FILES_PATH + "store_reservation.json"

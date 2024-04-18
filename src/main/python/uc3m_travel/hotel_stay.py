@@ -1,8 +1,6 @@
 ''' Class HotelStay (GE2.2) '''
 from datetime import datetime
 import hashlib
-import re
-from uc3m_travel.hotel_management_exception import HotelManagementException
 from uc3m_travel.attribute.attribute_idcard import IdCard
 from uc3m_travel.attribute.attribute_room_type import RoomType
 from uc3m_travel.attribute.attribute_localizer import Localizer
