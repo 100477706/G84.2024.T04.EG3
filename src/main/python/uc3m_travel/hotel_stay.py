@@ -5,6 +5,7 @@ import re
 from uc3m_travel.hotel_management_exception import HotelManagementException
 from uc3m_travel.attribute.attribute_idcard import IdCard
 from uc3m_travel.attribute.attribute_room_type import RoomType
+from uc3m_travel.attribute.attribute_localizer import Localizer
 
 
 class HotelStay():
@@ -18,7 +19,7 @@ class HotelStay():
         self.__alg = "SHA-256"
         self.__type = RoomType(roomtype).value
         self.__idcard = IdCard(idcard).value
-        self.__localizer = localizer
+        self.__localizer = Localizer(localizer).value
         justnow = datetime.utcnow()
         self.__arrival = datetime.timestamp(justnow)
         #timestamp is represented in seconds.miliseconds
@@ -69,19 +70,3 @@ class HotelStay():
     def departure(self, value):
         """returns the value of the departure date"""
         self.__departure = value
-
-
-    def validate_localizer(self, localizer):
-        """validates the localizer format using a regex"""
-        configuracion = r'^[a-fA-F0-9]{32}$'
-        myregex = re.compile(configuracion)
-        if not myregex.fullmatch(localizer):
-            raise HotelManagementException("Invalid localizer")
-        return localizer
-    def validate_roomkey(self, roomkey):
-        """validates the roomkey format using a regex"""
-        configuracion = r'^[a-fA-F0-9]{64}$'
-        myregex = re.compile(configuracion)
-        if not myregex.fullmatch(roomkey):
-            raise HotelManagementException("Invalid room key format")
-        return roomkey
