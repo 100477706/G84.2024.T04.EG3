@@ -5,7 +5,7 @@ import re
 from uc3m_travel.hotel_management_exception import HotelManagementException
 from uc3m_travel.attribute.attribute_idcard import IdCard
 from uc3m_travel.attribute.attribute_name_surname import NameSurname
-
+from uc3m_travel.attribute.attribute_phone_number import PhoneNumber
 
 class HotelReservation:
     """Class for representing hotel reservations"""
@@ -25,7 +25,7 @@ class HotelReservation:
         self.__arrival = self.validate_arrival_date(arrival)
         self.__reservation_date = datetime.timestamp(justnow)
         self.__name_surname = NameSurname(name_surname).value
-        self.__phone_number = self.validate_phonenumber(phone_number)
+        self.__phone_number = PhoneNumber(phone_number).value
         self.__room_type = self.validate_room_type(room_type)
         self.__num_days = self.validate_numdays(num_days)
         self.__localizer = hashlib.md5(str(self).encode()).hexdigest()
@@ -113,14 +113,6 @@ class HotelReservation:
         if not check:
             raise HotelManagementException("Invalid date format")
         return arrival_date
-
-    def validate_phonenumber(self, phone_number):
-        """validates the phone number format  using regex"""
-        myregex = re.compile(r"^(\+)[0-9]{9}")
-        check = myregex.fullmatch(phone_number)
-        if not check:
-            raise HotelManagementException("Invalid phone number format")
-        return phone_number
 
     def validate_numdays(self, num_days):
         """validates the number of days"""
