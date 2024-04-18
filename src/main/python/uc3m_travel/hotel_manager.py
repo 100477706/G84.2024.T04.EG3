@@ -76,7 +76,9 @@ class HotelManager:
         find_item.find_item_in_store(data_list, my_reservation)
 
         #añado los datos de mi reserva a la lista , a lo que hubiera
-        self.add_item_list(data_list, my_reservation)
+        anadir_list = JsonStore()
+
+        anadir_list.add_item_list(data_list, my_reservation)
 
         #escribo la lista en el fichero
         save_list = JsonStore()
@@ -84,8 +86,6 @@ class HotelManager:
 
         return my_reservation.localizer
 
-    def add_item_list(self, data_list, my_reservation):
-        data_list.append(my_reservation.__dict__)
 
     def find_item_in_store(self, data_list, my_reservation):
         for item in data_list:
@@ -170,7 +170,10 @@ class HotelManager:
         self.find_in_list_checkin2(my_checkin, room_key_list)
 
         #añado los datos de mi reserva a la lista , a lo que hubiera
-        self.add_item_list(room_key_list, my_checkin)
+        anadir_list = JsonStore()
+
+        anadir_list.add_item_list(room_key_list, my_checkin)
+
         save_list = JsonStore()
         save_list.save_json_store(file_store , room_key_list)
 
