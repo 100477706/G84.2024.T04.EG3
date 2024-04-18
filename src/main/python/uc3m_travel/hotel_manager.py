@@ -9,7 +9,6 @@ from uc3m_travel.hotel_management_config import JSON_FILES_PATH
 from freezegun import freeze_time
 from uc3m_travel.store.json_store import JsonStore
 from uc3m_travel.attribute.attribute_localizer import Localizer
-from uc3m_travel.attribute.attribute_idcard import IdCard
 
 
 
@@ -17,7 +16,16 @@ class HotelManager:
     """Class with all the methods for managing reservations and stays"""
     def __init__(self):
         pass
-
+    @staticmethod
+    def validate_dni(dni):
+        """RETURN TRUE IF THE DNI IS RIGHT, OR FALSE IN OTHER CASE"""
+        characters = {"0": "T", "1": "R", "2": "W", "3": "A", "4": "G", "5": "M",
+             "6": "Y", "7": "F", "8": "P", "9": "D", "10": "X", "11": "B",
+             "12": "N", "13": "J", "14": "Z", "15": "S", "16": "Q", "17": "V",
+             "18": "H", "19": "L", "20": "C", "21": "K", "22": "E"}
+        digits = int(dni[0:8])
+        letter = str(digits % 23)
+        return dni[8] == characters[letter]
 
     def validate_roomkey(self, roomkey):
         """validates the roomkey format using a regex"""
@@ -84,8 +92,7 @@ class HotelManager:
         except KeyError as exception:
             raise HotelManagementException("Error - Invalid Key in JSON") from exception
 
-        #Validamos el id_card
-        IdCard(my_id_card)
+        self.validate_idcard(my_id_card)
 
         #Validamos el localizer
         Localizer(my_localizer)
@@ -200,6 +207,14 @@ class HotelManager:
         except json.JSONDecodeError as exception:
             raise HotelManagementException("JSON Decode Error - Wrong JSON Format") from exception
         return input_list
+
+    def validate_idcard(self, my_id_card):
+        configuracion = r'^[0-9]{8}[A-Z]{1}$'
+        my_regex = re.compile(configuracion)
+        if not my_regex.fullmatch(my_id_card):
+            raise HotelManagementException("Invalid IdCard format")
+        if not self.validate_dni(my_id_card):
+            raise HotelManagementException("Invalid IdCard letter")
 
 
 
