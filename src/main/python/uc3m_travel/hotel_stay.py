@@ -4,6 +4,7 @@ import hashlib
 import re
 from uc3m_travel.hotel_management_exception import HotelManagementException
 from uc3m_travel.attribute.attribute_idcard import IdCard
+from uc3m_travel.attribute.attribute_room_type import RoomType
 
 
 class HotelStay():
@@ -15,7 +16,7 @@ class HotelStay():
                  roomtype:str):
         """constructor for HotelStay objects"""
         self.__alg = "SHA-256"
-        self.__type = roomtype
+        self.__type = RoomType(roomtype).value
         self.__idcard = IdCard(idcard).value
         self.__localizer = localizer
         justnow = datetime.utcnow()
