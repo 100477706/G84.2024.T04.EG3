@@ -75,7 +75,7 @@ class HotelManager:
 
     def guest_arrival(self, file_input: str)->str:
         """manages the arrival of a guest with a reservation"""
-        input_list = self.load_json_checkin_store(file_input)
+        input_list = self.read_input_file(file_input)
 
         # comprobar valores del fichero
         try:
@@ -95,11 +95,11 @@ class HotelManager:
 
         #leo los datos del fichero , si no existe deber dar error porque el almacen de reservaa
         # debe existir para hacer el checkin
-        store_list = self.save_json_ckeckout_store(file_store)
+        store_list = self.load_reservation_store(file_store)
         # compruebo si esa reserva esta en el almacen
         reservation_credit_card, reservation_date_arrival, reservation_date_timestamp, \
         reservation_days, reservation_id_card, reservation_name, reservation_phone, \
-        reservation_room_type = self.find_in_list_checkin(my_id_card, my_localizer, store_list)
+        reservation_room_type = self.find_reservation(my_id_card, my_localizer, store_list)
         # regenrar clave y ver si coincide
         reservation_date = datetime.fromtimestamp(reservation_date_timestamp)
 
@@ -133,7 +133,7 @@ class HotelManager:
         room_key_list = my_store_resersvation.load_json_store(file_store)
 
         # comprobar que no he hecho otro ckeckin antes
-        self.find_in_list_checkin2(my_checkin, room_key_list)
+        self.find_in_list_checkin(my_checkin, room_key_list)
 
         #añado los datos de mi reserva a la lista , a lo que hubiera
         anadir_list = JsonStore()
@@ -145,12 +145,12 @@ class HotelManager:
 
         return my_checkin.room_key
 
-    def find_in_list_checkin2(self, my_checkin, room_key_list):
+    def find_in_list_checkin(self, my_checkin, room_key_list):
         for item in room_key_list:
             if my_checkin.room_key == item["_HotelStay__room_key"]:
                 raise HotelManagementException("ckeckin  ya realizado")
 
-    def find_in_list_checkin(self, my_id_card, my_localizer, store_list):
+    def find_reservation(self, my_id_card, my_localizer, store_list):
         found = False
         for item in store_list:
             if my_localizer == item["_HotelReservation__localizer"]:
@@ -171,7 +171,7 @@ class HotelManager:
                reservation_days, reservation_id_card, reservation_name, reservation_phone, \
                reservation_room_type
 
-    def save_json_ckeckout_store(self, file_store):
+    def load_reservation_store(self, file_store):
         try:
             with open(file_store, "r", encoding="utf-8", newline="") as file:
                 store_list = json.load(file)
@@ -181,7 +181,7 @@ class HotelManager:
             raise HotelManagementException("JSON Decode Error - Wrong JSON Format") from exception
         return store_list
 
-    def load_json_checkin_store(self, file_input):
+    def read_input_file(self, file_input):
         try:
             with open(file_input, "r", encoding="utf-8", newline="") as file:
                 input_list = json.load(file)
@@ -200,7 +200,7 @@ class HotelManager:
         #check thawt the roomkey is stored in the checkins file
         file_store = JSON_FILES_PATH + "store_check_in.json"
 
-        room_key_list = self.load_json_checkout_file(file_store)
+        room_key_list = self.read_input_checkout_file(file_store)
 
         # comprobar que esa room_key es la que me han dado
         departure_date_timestamp = self.find_in_list_checkout(room_key, room_key_list)
@@ -237,7 +237,7 @@ class HotelManager:
             raise HotelManagementException("Error: room key not found")
         return departure_date_timestamp
 
-    def load_json_checkout_file(self, file_store):
+    def read_input_checkout_file(self, file_store):
         try:
             with open(file_store, "r", encoding="utf-8", newline="") as file:
                 room_key_list = json.load(file)
