@@ -8,6 +8,7 @@ from uc3m_travel.attribute.attribute_name_surname import NameSurname
 from uc3m_travel.attribute.attribute_phone_number import PhoneNumber
 from uc3m_travel.attribute.attribute_arrival_date import ArrivalDate
 from uc3m_travel.attribute.attribute_room_type import RoomType
+from uc3m_travel.attribute.attribute_credit_card import CreditCard
 
 class HotelReservation:
     """Class for representing hotel reservations"""
@@ -21,7 +22,7 @@ class HotelReservation:
                  arrival:str,
                  num_days:int):
         """constructor of reservation objects"""
-        self.__credit_card_number = self.validatecreditcard(credit_card_number)
+        self.__credit_card_number = CreditCard(credit_card_number).value
         self.__id_card = IdCard(id_card).value
         justnow = datetime.utcnow()
         self.__arrival = ArrivalDate(arrival).value
@@ -65,40 +66,6 @@ class HotelReservation:
     def localizer(self):
         """Returns the md5 signature"""
         return self.__localizer
-
-    def validate_localizer(self, localizer):
-        """validates the localizer format using a regex"""
-        configuracion = r'^[a-fA-F0-9]{32}$'
-        myregex = re.compile(configuracion)
-        if not myregex.fullmatch(localizer):
-            raise HotelManagementException("Invalid localizer")
-        return localizer
-    def validatecreditcard(self, card_number):
-        """validates the credit card number using luhn altorithm"""
-        #taken form
-        # https://allwin-raju-12.medium.com/
-        # credit-card-number-validation-using-luhns-algorithm-in-python-c0ed2fac6234
-        # PLEASE INCLUDE HERE THE CODE FOR VALIDATING THE GUID
-        # RETURN TRUE IF THE GUID IS RIGHT, OR FALSE IN OTHER CASE
-
-        myregex = re.compile(r"^[0-9]{16}")
-        result = myregex.fullmatch(card_number)
-        if not result:
-            raise HotelManagementException("Invalid credit card format")
-        def digits_of(number):
-            return [int(valor) for valor in str(number)]
-
-
-        digits = digits_of(card_number)
-        odd_digits = digits[-1::-2]
-        even_digits = digits[-2::-2]
-        checksum = 0
-        checksum += sum(odd_digits)
-        for d in even_digits:
-            checksum += sum(digits_of(d * 2))
-        if not checksum % 10 == 0:
-            raise HotelManagementException("Invalid credit card number (not luhn)")
-        return card_number
 
     def validate_numdays(self, num_days):
         """validates the number of days"""
