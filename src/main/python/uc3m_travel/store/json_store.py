@@ -18,3 +18,9 @@ class JsonStore():
         except json.JSONDecodeError as exception:
             raise HotelManagementException("JSON Decode Error - Wrong JSON Format") from exception
         return data_list
+    def find_item_in_store(self, data_list, my_reservation):
+        for item in data_list:
+            if my_reservation.localizer == item["_HotelReservation__localizer"]:
+                raise HotelManagementException("Reservation already exists")
+            if my_reservation.id_card == item["_HotelReservation__id_card"]:
+                raise HotelManagementException("This ID card has another reservation")

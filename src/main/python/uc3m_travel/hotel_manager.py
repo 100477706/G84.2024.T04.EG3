@@ -71,7 +71,10 @@ class HotelManager:
         data_list = my_store_resersvation.load_json_store(file_store)
 
         #compruebo que esta reserva no esta en la lista
-        self.find_item_in_store(data_list, my_reservation)
+        find_item = JsonStore()
+
+        find_item.find_item_in_store(data_list, my_reservation)
+
         #añado los datos de mi reserva a la lista , a lo que hubiera
         self.add_item_list(data_list, my_reservation)
 
