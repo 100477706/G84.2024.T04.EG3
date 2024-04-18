@@ -107,14 +107,6 @@ class HotelReservation:
             raise HotelManagementException("Invalid roomtype value")
         return room_type
 
-    def validate_arrival_date(self, arrival_date):
-        """validates the arrival date format  using regex"""
-        myregex = re.compile(r"^(([0-2]\d|-3[0-1])\/(0\d|1[0-2])\/\d\d\d\d)$")
-        check = myregex.fullmatch(arrival_date)
-        if not check:
-            raise HotelManagementException("Invalid date format")
-        return arrival_date
-
     def validate_numdays(self, num_days):
         """validates the number of days"""
         try:

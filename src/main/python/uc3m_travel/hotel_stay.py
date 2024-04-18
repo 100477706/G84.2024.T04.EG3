@@ -70,7 +70,6 @@ class HotelStay():
         self.__departure = value
 
 
-
     def validate_localizer(self, localizer):
         """validates the localizer format using a regex"""
         configuracion = r'^[a-fA-F0-9]{32}$'
