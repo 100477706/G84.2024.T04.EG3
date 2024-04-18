@@ -7,6 +7,8 @@ from uc3m_travel.hotel_reservation import HotelReservation
 from uc3m_travel.hotel_stay import HotelStay
 from uc3m_travel.hotel_management_config import JSON_FILES_PATH
 from freezegun import freeze_time
+from uc3m_travel.store.json_store import JsonStore
+
 
 
 class HotelManager:
@@ -64,7 +66,9 @@ class HotelManager:
         file_store = JSON_FILES_PATH + "store_reservation.json"
 
         #leo los datos del fichero si existe , y si no existe creo una lista vacia
-        data_list = self.load_json_store(file_store)
+        my_store_resersvation = JsonStore()
+
+        data_list = my_store_resersvation.load_json_store(file_store)
 
         #compruebo que esta reserva no esta en la lista
         self.find_item_in_store(data_list, my_reservation)
