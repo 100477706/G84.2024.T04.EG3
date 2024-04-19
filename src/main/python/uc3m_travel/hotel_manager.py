@@ -60,9 +60,7 @@ class HotelManager:
         my_new_reservation.find_item_in_store(data_list, my_reservation)
 
         #añado los datos de mi reserva a la lista , a lo que hubiera
-        anadir_list = JsonStore()
-
-        anadir_list.add_item_list(data_list, my_reservation)
+        my_new_reservation.add_item_list(data_list, my_reservation)
 
         #escribo la lista en el fichero
         save_list = JsonStore()
