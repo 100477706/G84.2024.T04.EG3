@@ -49,9 +49,6 @@ class HotelManager:
                                           arrival=arrival_date,
                                           num_days=num_days)
 
-        # escribo el fichero Json con todos los datos
-        file_store = JSON_FILES_PATH + "store_reservation.json"
-
         #leo los datos del fichero si existe , y si no existe creo una lista vacia
         my_new_reservation = StoreReservation()
         data_list = my_new_reservation.load_json_store()
@@ -60,7 +57,7 @@ class HotelManager:
         my_new_reservation.find_item_in_store(my_reservation)
 
         #añado los datos de mi reserva a la lista , a lo que hubiera
-        my_new_reservation.add_item_list(data_list, my_reservation)
+        my_new_reservation.add_item_list(my_reservation)
 
         #escribo la lista en el fichero
         my_new_reservation.save_json_store(data_list)

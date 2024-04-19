@@ -29,6 +29,6 @@ class JsonStoreFather:
                 json.dump(room_key_list, file, indent=2)
         except FileNotFoundError as exception:
             raise HotelManagementException("Wrong file  or file path") from exception
-    def add_item_list(self, data_list, my_reservation):
-        data_list.append(my_reservation.__dict__)
+    def add_item_list(self, my_reservation):
+        self._data_list.append(my_reservation.__dict__)
 
