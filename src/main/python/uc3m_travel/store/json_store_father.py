@@ -5,18 +5,19 @@ class JsonStoreFather:
 
     def __init__(self):
         self._file_name = ""
+        self._data_list = []
 
     def load_json_store(self):
         try:
             with open(self._file_name, "r", encoding="utf-8", newline="") as file:
-                data_list = json.load(file)
+                self._data_list = json.load(file)
         except FileNotFoundError:
-            data_list = []
+            self._data_list = []
         except json.JSONDecodeError as exception:
             raise HotelManagementException("JSON Decode Error - Wrong JSON Format") from exception
-        return data_list
-    def find_item_in_store(self, data_list, my_reservation):
-        for item in data_list:
+        return self._data_list
+    def find_item_in_store(self, my_reservation):
+        for item in self._data_list:
             if my_reservation.localizer == item["_HotelReservation__localizer"]:
                 raise HotelManagementException("Reservation already exists")
             if my_reservation.id_card == item["_HotelReservation__id_card"]:
