@@ -63,8 +63,7 @@ class HotelManager:
         my_new_reservation.add_item_list(data_list, my_reservation)
 
         #escribo la lista en el fichero
-        save_list = JsonStore()
-        save_list.save_json_store(file_store, data_list)
+        my_new_reservation.save_json_store(data_list)
 
         return my_reservation.localizer
 
