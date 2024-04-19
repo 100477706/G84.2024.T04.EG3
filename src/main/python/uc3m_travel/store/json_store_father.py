@@ -23,10 +23,10 @@ class JsonStoreFather:
             if my_reservation.id_card == item["_HotelReservation__id_card"]:
                 raise HotelManagementException("This ID card has another reservation")
 
-    def save_json_store(self, room_key_list):
+    def save_json_store(self):
         try:
             with open(self._file_name, "w", encoding="utf-8", newline="") as file:
-                json.dump(room_key_list, file, indent=2)
+                json.dump(self._data_list, file, indent=2)
         except FileNotFoundError as exception:
             raise HotelManagementException("Wrong file  or file path") from exception
     def add_item_list(self, my_reservation):

@@ -51,7 +51,6 @@ class HotelManager:
 
         #leo los datos del fichero si existe , y si no existe creo una lista vacia
         my_new_reservation = StoreReservation()
-        data_list = my_new_reservation.load_json_store()
 
         #compruebo que esta reserva no esta en la lista
         my_new_reservation.find_item_in_store(my_reservation)
@@ -60,7 +59,7 @@ class HotelManager:
         my_new_reservation.add_item_list(my_reservation)
 
         #escribo la lista en el fichero
-        my_new_reservation.save_json_store(data_list)
+        my_new_reservation.save_json_store()
 
         return my_reservation.localizer
 
