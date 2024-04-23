@@ -52,6 +52,9 @@ class HotelManager:
         #leo los datos del fichero si existe , y si no existe creo una lista vacia
         my_new_reservation = StoreReservation()
 
+        #Cargo los datos
+        my_new_reservation.load_json_store()
+
         #compruebo que esta reserva no esta en la lista
         my_new_reservation.find_item_in_store(my_reservation)
 
