@@ -10,6 +10,7 @@ from uc3m_travel.attribute.attribute_arrival_date import ArrivalDate
 from uc3m_travel.attribute.attribute_room_type import RoomType
 from uc3m_travel.attribute.attribute_credit_card import CreditCard
 from uc3m_travel.attribute.attribute_num_days import NumDays
+from uc3m_travel.store.reservation_json_store import StoreReservation
 
 class HotelReservation:
     """Class for representing hotel reservations"""

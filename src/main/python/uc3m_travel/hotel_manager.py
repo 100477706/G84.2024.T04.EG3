@@ -11,6 +11,7 @@ from uc3m_travel.store.json_store import JsonStore
 from uc3m_travel.attribute.attribute_localizer import Localizer
 from uc3m_travel.attribute.attribute_idcard import IdCard
 from uc3m_travel.store.reservation_json_store import StoreReservation
+from uc3m_travel.hotel_reservation import HotelReservation
 
 
 
@@ -74,11 +75,7 @@ class HotelManager:
             input_list = self.read_input_file(file_input)
 
             # comprobar valores del fichero
-            try:
-                my_localizer = input_list["Localizer"]
-                my_id_card = input_list["IdCard"]
-            except KeyError as exception:
-                raise HotelManagementException("Error - Invalid Key in JSON") from exception
+            my_id_card, my_localizer = self.read_input_data_from_file(input_list)
 
             # Validamos el IdCard
             IdCard(my_id_card)
@@ -140,6 +137,14 @@ class HotelManager:
             save_list.save_json_store(file_store , room_key_list)
 
             return my_checkin.room_key
+
+        def read_input_data_from_file(self, input_list):
+            try:
+                my_localizer = input_list["Localizer"]
+                my_id_card = input_list["IdCard"]
+            except KeyError as exception:
+                raise HotelManagementException("Error - Invalid Key in JSON") from exception
+            return my_id_card, my_localizer
 
         def find_in_list_checkin(self, my_checkin, room_key_list):
             for item in room_key_list:
