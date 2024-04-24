@@ -1,7 +1,7 @@
 from uc3m_travel.store.json_store_father import JsonStoreFather
 from uc3m_travel.hotel_management_config import JSON_FILES_PATH
 
-class StoreReservation(JsonStoreFather):
+class JsonStoreReservation(JsonStoreFather):
     class __StoreReservation(JsonStoreFather):
         def __init__(self):
             self._data_list = []
@@ -11,6 +11,6 @@ class StoreReservation(JsonStoreFather):
     __instance = None
 
     def __new__(cls):
-        if not StoreReservation.__instance:
-            StoreReservation.__instance = StoreReservation.__StoreReservation()
-        return StoreReservation.__instance
+        if not JsonStoreReservation.__instance:
+            JsonStoreReservation.__instance = JsonStoreReservation.__StoreReservation()
+        return JsonStoreReservation.__instance

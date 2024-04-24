@@ -10,7 +10,7 @@ from freezegun import freeze_time
 from uc3m_travel.store.json_store import JsonStore
 from uc3m_travel.attribute.attribute_localizer import Localizer
 from uc3m_travel.attribute.attribute_idcard import IdCard
-from uc3m_travel.store.reservation_json_store import StoreReservation
+from uc3m_travel.store.json_store_reservation_ import JsonStoreReservation
 from uc3m_travel.hotel_reservation import HotelReservation
 
 
@@ -52,7 +52,7 @@ class HotelManager:
                                               num_days=num_days)
 
             #leo los datos del fichero si existe , y si no existe creo una lista vacia
-            my_new_reservation = StoreReservation()
+            my_new_reservation = JsonStoreReservation()
 
             #Cargo los datos
             my_new_reservation.load_json_store()
