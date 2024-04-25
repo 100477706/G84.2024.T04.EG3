@@ -1,7 +1,3 @@
-"""
-Creado por Joaquín Pujol Carrillo in abr 2024
-Universidad Carlos III de Madrid
-"""
 import json
 from uc3m_travel.hotel_management_exception import HotelManagementException
 

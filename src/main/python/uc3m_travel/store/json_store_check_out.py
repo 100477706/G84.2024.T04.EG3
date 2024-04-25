@@ -1,7 +1,3 @@
-"""
-Creado por Joaquín Pujol Carrillo in abr 2024
-Universidad Carlos III de Madrid
-"""
 from datetime import datetime
 
 from uc3m_travel.hotel_management_config import JSON_FILES_PATH
