@@ -12,6 +12,7 @@ from uc3m_travel.store.json_store import JsonStore
 from uc3m_travel.attribute.attribute_localizer import Localizer
 from uc3m_travel.attribute.attribute_idcard import IdCard
 from uc3m_travel.store.json_store_checkin import JsonStoreGuestArrival
+from uc3m_travel.store.json_store_check_out import JsonStoreCheckOut
 from uc3m_travel.store.json_store_reservation import JsonStoreReservation
 
 
