@@ -109,16 +109,20 @@ class HotelManager:
 
         def create_guest_arrival(self, file_input):
             input_list = self.read_input_file(file_input)
+
             # comprobar valores del fichero
             my_id_card, my_localizer = self.read_input_data_from_file(input_list)
+
             # Llamado al metodo que esta en hotel reservation
             new_reservation = HotelReservation.create_reservation_from_arrival \
                 (my_id_card, my_localizer)
+
             # compruebo si hoy es la fecha de checkin
             reservation_format = "%d/%m/%Y"
             date_obj = datetime.strptime(new_reservation.arrival, reservation_format)
             if date_obj.date() != datetime.date(datetime.utcnow()):
                 raise HotelManagementException("Error: today is not reservation date")
+
             # genero la room key para ello llamo a Hotel Stay
             my_checkin = HotelStay(idcard=my_id_card, numdays=int(new_reservation.num_days),
                                    localizer=my_localizer, roomtype=new_reservation.room_type)
