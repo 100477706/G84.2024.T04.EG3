@@ -219,7 +219,7 @@ class HotelManager:
             file_store = JSON_FILES_PATH + "store_check_in.json"
 
 
-            room_key_list = self.read_input_checkout_file(file_store)
+            room_key_list = JsonStoreCheckOut().read_input_checkout_file(file_store)
 
             # comprobar que esa room_key es la que me han dado
             departure_date_timestamp = JsonStoreCheckOut().find_in_list_checkout(room_key, room_key_list)
