@@ -207,7 +207,7 @@ class HotelManager:
         def guest_checkout(self, room_key: str)->bool:
             """manages the checkout of a guest"""
             self.validate_roomkey(room_key)
-            #check thawt the roomkey is stored in the checkins file
+            #check that the roomkey is stored in the checkins file
             file_store = JSON_FILES_PATH + "store_check_in.json"
 
             room_key_list = self.read_input_checkout_file(file_store)
