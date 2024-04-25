@@ -14,6 +14,7 @@ from uc3m_travel.attribute.attribute_room_type import RoomType
 from uc3m_travel.attribute.attribute_credit_card import CreditCard
 from uc3m_travel.attribute.attribute_num_days import NumDays
 from uc3m_travel.attribute.attribute_localizer import Localizer
+from uc3m_travel.store.json_store_checkin import JsonStoreGuestArrival
 from uc3m_travel.store.json_store_reservation import JsonStoreReservation
 
 class HotelReservation:
@@ -116,8 +117,11 @@ class HotelReservation:
         # compruebo si esa reserva esta en el almacen
         # reservation = self.find_reservation(my_localizer, store_list)
 
-        reservation = reservation_store.find_item(key="_HotelReservation__localizer",
-                                                  value=my_localizer)
+        reservation = reservation_store.find_item(key1="_HotelReservation__localizer",
+                                                  value1=my_localizer,
+                                                  key2="_HotelReservation__id_card",
+                                                  value2=my_id_card
+                                                  )
 
         if reservation is None:
             raise HotelManagementException("Error: localizer not found")
