@@ -88,7 +88,12 @@ class HotelManager:
             # comprobar valores del fichero
             my_id_card, my_localizer = self.read_input_data_from_file(input_list)
 
-            new_reservation = self.create_reservation_from_arrival(my_id_card, my_localizer)
+            #Llamado al metodo que esta en Hotel Manager
+            #new_reservation = self.create_reservation_from_arrival(my_id_card, my_localizer)
+
+            #Llamado al metodo que esta en hotel reservation
+            new_reservation = HotelReservation.create_reservation_from_arrival\
+                (my_id_card, my_localizer)
 
             # compruebo si hoy es la fecha de checkin
             reservation_format = "%d/%m/%Y"
