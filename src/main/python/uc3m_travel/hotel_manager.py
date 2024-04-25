@@ -84,7 +84,7 @@ class HotelManager:
 
         def guest_arrival(self, file_input: str)->str:
             """manages the arrival of a guest with a reservation"""
-            my_checkin = self.create_guest_arrival(file_input)
+            my_checkin = HotelStay.create_guest_arrival(file_input)
 
             #Ahora lo guardo en el almacen nuevo de checkin
             # escribo el fichero Json con todos los datos

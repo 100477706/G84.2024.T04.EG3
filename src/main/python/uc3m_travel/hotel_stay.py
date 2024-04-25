@@ -1,9 +1,12 @@
 ''' Class HotelStay (GE2.2) '''
+import json
 from datetime import datetime
 import hashlib
 from uc3m_travel.attribute.attribute_idcard import IdCard
 from uc3m_travel.attribute.attribute_room_type import RoomType
 from uc3m_travel.attribute.attribute_localizer import Localizer
+from uc3m_travel.hotel_reservation import HotelReservation
+from uc3m_travel.hotel_management_exception import HotelManagementException
 
 
 class HotelStay():
@@ -68,3 +71,45 @@ class HotelStay():
     def departure(self, value):
         """returns the value of the departure date"""
         self.__departure = value
+
+    @classmethod
+    def create_guest_arrival(cls, file_input):
+        input_list = cls.read_input_file(file_input)
+
+        # comprobar valores del fichero
+        my_id_card, my_localizer = cls.read_input_data_from_file(input_list)
+
+        # Llamado al metodo que esta en hotel reservation
+        new_reservation = HotelReservation.create_reservation_from_arrival \
+            (my_id_card, my_localizer)
+
+        # compruebo si hoy es la fecha de checkin
+        reservation_format = "%d/%m/%Y"
+        date_obj = datetime.strptime(new_reservation.arrival, reservation_format)
+        if date_obj.date() != datetime.date(datetime.utcnow()):
+            raise HotelManagementException("Error: today is not reservation date")
+
+        # genero la room key para ello llamo a Hotel Stay
+        my_checkin = HotelStay(idcard=my_id_card, numdays=int(new_reservation.num_days),
+                               localizer=my_localizer, roomtype=new_reservation.room_type)
+        return my_checkin
+
+    @classmethod
+    def read_input_file(cls, file_input):
+        try:
+            with open(file_input, "r", encoding="utf-8", newline="") as file:
+                input_list = json.load(file)
+        except FileNotFoundError as exception:
+            raise HotelManagementException("Error: file input not found") from exception
+        except json.JSONDecodeError as exception:
+            raise HotelManagementException("JSON Decode Error - Wrong JSON Format") from exception
+        return input_list
+
+    @classmethod
+    def read_input_data_from_file(self, input_list):
+        try:
+            my_localizer = input_list["Localizer"]
+            my_id_card = input_list["IdCard"]
+        except KeyError as exception:
+            raise HotelManagementException("Error - Invalid Key in JSON") from exception
+        return my_id_card, my_localizer
