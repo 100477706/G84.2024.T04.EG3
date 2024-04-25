@@ -3,7 +3,7 @@ Creado por Joaquín Pujol Carrillo in abr 2024
 Universidad Carlos III de Madrid
 """
 from datetime import datetime
-from uc3m_travel.hotel_manager_exception import HotelManagementException
+from uc3m_travel.hotel_management_exception import HotelManagementException
 
 class HotelDeparture:
     def __init__(self, room_key):

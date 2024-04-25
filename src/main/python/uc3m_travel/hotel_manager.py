@@ -7,6 +7,7 @@ from uc3m_travel.hotel_reservation import HotelReservation
 from uc3m_travel.hotel_stay import HotelStay
 from uc3m_travel.hotel_management_config import JSON_FILES_PATH
 from freezegun import freeze_time
+from uc3m_travel.hotel_departure import HotelDeparture
 from uc3m_travel.store.json_store import JsonStore
 from uc3m_travel.attribute.attribute_localizer import Localizer
 from uc3m_travel.attribute.attribute_idcard import IdCard
@@ -217,9 +218,7 @@ class HotelManager:
             # comprobar que esa room_key es la que me han dado
             departure_date_timestamp = self.find_in_list_checkout(room_key, room_key_list)
 
-            today = datetime.utcnow().date()
-            if datetime.fromtimestamp(departure_date_timestamp).date() != today:
-                raise HotelManagementException("Error: today is not the departure day")
+            HotelDeparture(room_key).is_today_departure(departure_date_timestamp)
 
             file_store_checkout = JSON_FILES_PATH + "store_check_out.json"
 
