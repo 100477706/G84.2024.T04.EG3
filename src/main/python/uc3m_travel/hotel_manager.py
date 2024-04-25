@@ -231,9 +231,7 @@ class HotelManager:
             my_store_resersvation = JsonStore()
             room_key_list = my_store_resersvation.load_json_store(file_store_checkout)
 
-            for checkout in room_key_list:
-                if checkout["room_key"] == room_key:
-                    raise HotelManagementException("Guest is already out")
+            JsonStoreCheckOut().IsGuestOut(room_key_list, room_key)
 
             room_checkout={"room_key":  room_key, "checkout_time":datetime.timestamp(datetime.utcnow())}
 
