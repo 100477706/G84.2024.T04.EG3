@@ -10,6 +10,7 @@ from freezegun import freeze_time
 from uc3m_travel.store.json_store import JsonStore
 from uc3m_travel.attribute.attribute_localizer import Localizer
 from uc3m_travel.attribute.attribute_idcard import IdCard
+from uc3m_travel.store.json_store_checkin import JsonStoreGuestArrival
 from uc3m_travel.store.json_store_reservation import JsonStoreReservation
 
 
@@ -208,7 +209,8 @@ class HotelManager:
             """manages the checkout of a guest"""
             self.validate_roomkey(room_key)
             #check that the roomkey is stored in the checkins file
-            file_store = JSON_FILES_PATH + "store_check_in.json"
+            file_store = JsonStoreGuestArrival()._file_name
+
 
             room_key_list = self.read_input_checkout_file(file_store)
 
@@ -220,6 +222,7 @@ class HotelManager:
                 raise HotelManagementException("Error: today is not the departure day")
 
             file_store_checkout = JSON_FILES_PATH + "store_check_out.json"
+
             my_store_resersvation = JsonStore()
             room_key_list = my_store_resersvation.load_json_store(file_store_checkout)
 
