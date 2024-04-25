@@ -26,8 +26,8 @@ class JsonStoreGuestArrival(JsonStoreFather):
             raise HotelManagementException("Error - Invalid Key in JSON") from exception
         return my_id_card, my_localizer
 
-    def find_in_list_checkin(self, my_checkin, room_key_list):
-        for item in room_key_list:
-            if my_checkin.room_key == item["_HotelStay__room_key"]:
-                raise HotelManagementException("ckeckin  ya realizado")
+    def find_item_checkin(self, value, key):
+        self.load_json_store(self._file_name)
+        self._error_message_find = "ckeckin  ya realizado"
+        super().find_item(value, key)
 
