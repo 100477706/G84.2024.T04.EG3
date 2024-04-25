@@ -61,41 +61,9 @@ class HotelManager:
         def guest_arrival(self, file_input: str)->str:
             """manages the arrival of a guest with a reservation"""
             my_checkin = HotelStay.create_guest_arrival(file_input)
-
             HotelStay.save_roomkey(my_checkin)
 
-            #Ahora lo guardo en el almacen nuevo de checkin
-            # escribo el fichero Json con todos los datos
-            # file_store = JSON_FILES_PATH + "store_check_in.json"
-            #
-            # # leo los datos del fichero si existe , y si no existe creo una lista vacia
-            # my_store_resersvation = JsonStore()
-            # room_key_list = my_store_resersvation.load_json_store(file_store)
-            #
-            # # comprobar que no he hecho otro ckeckin antes
-            # checkin_store = JsonStoreGuestArrival()
-            # checkin_store.find_in_list_checkin(my_checkin, room_key_list)
-            #
-            # #añado los datos de mi reserva a la lista , a lo que hubiera
-            # anadir_list = JsonStore()
-            #
-            # anadir_list.add_item_list(room_key_list, my_checkin)
-            #
-            # save_list = JsonStore()
-            # save_list.save_json_store(file_store , room_key_list)
-
             return my_checkin.room_key
-
-        # def save_roomkey(self, my_checkin):
-        #     my_store_checkin = JsonStoreGuestArrival()
-        #     my_store_checkin.find_item_checkin(value=my_checkin.room_key,
-        #                                    key="_HotelStay__room_key")
-        #     my_store_checkin.add_item_list(my_checkin)
-
-        # def find_in_list_checkin(self, my_checkin, room_key_list):
-        #     for item in room_key_list:
-        #         if my_checkin.room_key == item["_HotelStay__room_key"]:
-        #             raise HotelManagementException("ckeckin  ya realizado")
 
         def guest_checkout(self, room_key: str)->bool:
             """manages the checkout of a guest"""
