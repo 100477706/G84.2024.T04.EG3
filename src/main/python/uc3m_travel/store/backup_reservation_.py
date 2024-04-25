@@ -14,9 +14,9 @@ class JsonStoreReservation(JsonStoreFather):
 
         def find_item(self, value1, key1, value2, key2):
             self.load_json_store(self._file_name)
-            super().find_item_general(value1, key1)
+            super().find_item(value1, key1)
             self._error_message_find = "This ID card has another reservation"
-            super().find_item_general(value2, key2)
+            super().find_item(value2, key2)
 
 
     # esto en la clase reservation_json_store

@@ -1,3 +1,4 @@
+import hashlib
 import json
 from uc3m_travel.hotel_management_exception import HotelManagementException
 
@@ -37,8 +38,13 @@ class JsonStoreFather:
         self._data_list.append(my_reservation.__dict__)
         self.save_json_store(self._file_name)
 
-    def find_item_general(self, value, key):
+    def find_item(self, value, key):
         self.load_json_store(self._file_name)
         for item in self._data_list:
             if value == item[key]:
                 raise HotelManagementException(self._error_message_find)
+
+    # @property
+    # def hash(self):
+    #     self.load_json_store()
+    #     return hashlib.md5(self.__str__().encode()).hexdigest()

@@ -122,20 +122,27 @@ class HotelManager:
         def create_reservation_from_arrival(self, my_id_card, my_localizer):
             # Validamos el IdCard
             my_id_card = IdCard(my_id_card).value
+
             # Validamos el localizer
             my_localizer = Localizer(my_localizer).value
+
             # buscar en almacen
             file_store = JSON_FILES_PATH + "store_reservation.json"
+
             # leo los datos del fichero , si no existe deber dar error porque el almacen de reservaa
             # debe existir para hacer el checkin
             store_list = self.load_reservation_store(file_store)
+
             # compruebo si esa reserva esta en el almacen
             reservation = self.find_reservation(my_localizer, store_list)
+
             if my_id_card != reservation["_HotelReservation__id_card"]:
                 raise HotelManagementException("Error: Localizer is not correct for this IdCard")
+
             # regenrar clave y ver si coincide
             reservation_date = datetime.fromtimestamp(reservation[
                                                           "_HotelReservation__reservation_date"])
+
             with freeze_time(reservation_date):
                 new_reservation = HotelReservation(credit_card_number=reservation[
                     "_HotelReservation__credit_card_number"],
