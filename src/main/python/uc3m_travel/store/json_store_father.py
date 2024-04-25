@@ -44,6 +44,7 @@ class JsonStoreFather:
             if value == item[key]:
                 raise HotelManagementException(self._error_message_find)
 
+
     # @property
     # def hash(self):
     #     self.load_json_store()
