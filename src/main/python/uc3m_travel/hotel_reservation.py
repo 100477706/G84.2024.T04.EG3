@@ -118,7 +118,7 @@ class HotelReservation:
         #store_list = cls.load_reservation_store(file_store)
 
         # compruebo si esa reserva esta en el almacen
-        reservation = cls.find_reservation(my_localizer, store_list)
+        reservation = my_store_reservation.find_reservation(my_localizer, store_list)
 
         if my_id_card != reservation["_HotelReservation__id_card"]:
             raise HotelManagementException("Error: Localizer is not correct for this IdCard")

@@ -28,6 +28,12 @@ class JsonStoreReservation(JsonStoreFather):
                     "JSON Decode Error - Wrong JSON Format") from exception
             return self._data_list
 
+        def find_reservation(self, my_localizer, store_list):
+            for item in store_list:
+                if my_localizer == item["_HotelReservation__localizer"]:
+                    return item
+                raise HotelManagementException("Error: localizer not found")
+
 
     # esto en la clase reservation_json_store
     __instance = None
