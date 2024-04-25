@@ -222,7 +222,7 @@ class HotelManager:
             room_key_list = self.read_input_checkout_file(file_store)
 
             # comprobar que esa room_key es la que me han dado
-            departure_date_timestamp = self.find_in_list_checkout(room_key, room_key_list)
+            departure_date_timestamp = JsonStoreCheckOut().find_in_list_checkout(room_key, room_key_list)
 
             HotelDeparture(room_key).is_today_departure(departure_date_timestamp)
 
@@ -238,16 +238,6 @@ class HotelManager:
             save_list.save_json_store(file_store_checkout, room_key_list)
 
             return True
-
-        def find_in_list_checkout(self, room_key, room_key_list):
-            found = False
-            for item in room_key_list:
-                if room_key == item["_HotelStay__room_key"]:
-                    departure_date_timestamp = item["_HotelStay__departure"]
-                    found = True
-            if not found:
-                raise HotelManagementException("Error: room key not found")
-            return departure_date_timestamp
 
         def read_input_checkout_file(self, file_store):
             try:

@@ -18,6 +18,16 @@ class JsonStoreCheckOut(JsonStoreFather):
 
         room_key_list.append(room_checkout)
 
+    def find_in_list_checkout(self, room_key, room_key_list):
+        found = False
+        for item in room_key_list:
+            if room_key == item["_HotelStay__room_key"]:
+                departure_date_timestamp = item["_HotelStay__departure"]
+                found = True
+        if not found:
+            raise HotelManagementException("Error: room key not found")
+        return departure_date_timestamp
+
 
 
     """def add_item(self, value_to_add):
