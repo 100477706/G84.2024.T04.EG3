@@ -71,7 +71,8 @@ class HotelManager:
             room_key_list = my_store_resersvation.load_json_store(file_store)
 
             # comprobar que no he hecho otro ckeckin antes
-            self.find_in_list_checkin(my_checkin, room_key_list)
+            checkin_store = JsonStoreGuestArrival()
+            checkin_store.find_in_list_checkin(my_checkin, room_key_list)
 
             #añado los datos de mi reserva a la lista , a lo que hubiera
             anadir_list = JsonStore()
