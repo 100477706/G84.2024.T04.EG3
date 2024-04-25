@@ -1,6 +1,6 @@
 import unittest
 from uc3m_travel import HotelManager
-from uc3m_travel.store.backup_reservation_ import JsonStoreReservation
+from uc3m_travel.store.json_store_reservation import JsonStoreReservation
 ## CUIDADO QUE APARECE EL BACKUP PORQUE HAY UNA FALLITA CON EL SINGLETON DE HOTEL RESERVATION
 
 class MyTestCase(unittest.TestCase):
