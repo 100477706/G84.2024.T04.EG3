@@ -84,7 +84,7 @@ class HotelManager:
 
         def guest_arrival(self, file_input: str)->str:
             """manages the arrival of a guest with a reservation"""
-            input_list = JsonStoreGuestArrival().read_input_file(file_input)
+            input_list = self.read_input_file(file_input)
 
             # comprobar valores del fichero
             my_id_card, my_localizer = self.read_input_data_from_file(input_list)
@@ -169,6 +169,16 @@ class HotelManager:
             if new_reservation.localizer != my_localizer:
                 raise HotelManagementException("Error: reservation has been manipulated")
             return new_reservation
+
+        def read_input_file(self, file_input):
+            try:
+                with open(file_input, "r", encoding="utf-8", newline="") as file:
+                    input_list = json.load(file)
+            except FileNotFoundError as exception:
+                raise HotelManagementException("Error: file input not found") from exception
+            except json.JSONDecodeError as exception:
+                raise HotelManagementException("JSON Decode Error - Wrong JSON Format") from exception
+            return input_list
 
         def read_input_data_from_file(self, input_list):
             try:

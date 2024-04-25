@@ -24,13 +24,5 @@ class JsonStoreGuestArrival(JsonStoreFather):
             raise HotelManagementException("JSON Decode Error - Wrong JSON Format") from exception
         return store_list
 
-    def read_input_file(self, file_input):
-        try:
-            with open(file_input, "r", encoding="utf-8", newline="") as file:
-                input_list = json.load(file)
-        except FileNotFoundError as exception:
-            raise HotelManagementException("Error: file input not found") from exception
-        except json.JSONDecodeError as exception:
-            raise HotelManagementException("JSON Decode Error - Wrong JSON Format") from exception
-        return input_list
+
 
