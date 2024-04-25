@@ -216,7 +216,7 @@ class HotelManager:
             """manages the checkout of a guest"""
             self.validate_roomkey(room_key)
             #check that the roomkey is stored in the checkins file
-            file_store = JsonStoreGuestArrival()._file_name
+            file_store = JSON_FILES_PATH + "store_check_in.json"
 
 
             room_key_list = self.read_input_checkout_file(file_store)
@@ -232,10 +232,6 @@ class HotelManager:
             room_key_list = my_store_resersvation.load_json_store(file_store_checkout)
 
             JsonStoreCheckOut().IsGuestOut(room_key_list, room_key)
-
-            room_checkout={"room_key":  room_key, "checkout_time":datetime.timestamp(datetime.utcnow())}
-
-            room_key_list.append(room_checkout)
 
             save_list = JsonStore()
 
