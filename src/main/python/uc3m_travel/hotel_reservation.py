@@ -3,9 +3,7 @@ import hashlib
 import json
 from datetime import datetime
 import re
-
 from freezegun import freeze_time
-
 from uc3m_travel.hotel_management_exception import HotelManagementException
 from uc3m_travel.attribute.attribute_idcard import IdCard
 from uc3m_travel.attribute.attribute_name_surname import NameSurname
@@ -15,9 +13,7 @@ from uc3m_travel.attribute.attribute_room_type import RoomType
 from uc3m_travel.attribute.attribute_credit_card import CreditCard
 from uc3m_travel.attribute.attribute_num_days import NumDays
 from uc3m_travel.attribute.attribute_localizer import Localizer
-from uc3m_travel.store.json_store_checkin import JsonStoreGuestArrival
 from uc3m_travel.store.json_store_reservation import JsonStoreReservation
-from uc3m_travel.hotel_management_config import JSON_FILES_PATH
 
 class HotelReservation:
     """Class for representing hotel reservations"""

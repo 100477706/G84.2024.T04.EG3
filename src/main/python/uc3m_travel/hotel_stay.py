@@ -7,6 +7,7 @@ from uc3m_travel.attribute.attribute_room_type import RoomType
 from uc3m_travel.attribute.attribute_localizer import Localizer
 from uc3m_travel.hotel_reservation import HotelReservation
 from uc3m_travel.hotel_management_exception import HotelManagementException
+from uc3m_travel.store.json_store_check_in import JsonStoreGuestArrival
 
 
 class HotelStay():
@@ -74,7 +75,8 @@ class HotelStay():
 
     @classmethod
     def create_guest_arrival(cls, file_input):
-        input_list = cls.read_input_file(file_input)
+        my_store_arrival = JsonStoreGuestArrival()
+        input_list = my_store_arrival.read_input_file(file_input)
 
         # comprobar valores del fichero
         my_id_card, my_localizer = cls.read_input_data_from_file(input_list)
