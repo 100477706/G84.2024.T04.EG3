@@ -109,13 +109,11 @@ class HotelReservation:
         my_localizer = Localizer(my_localizer).value
 
         # buscar en almacen
-        #file_store = JSON_FILES_PATH + "store_reservation.json"
-
         my_store_reservation = JsonStoreReservation()
+
         # leo los datos del fichero , si no existe deber dar error porque el almacen de reservaa
         # debe existir para hacer el checkin
         store_list = my_store_reservation.load_reservation_store()
-        #store_list = cls.load_reservation_store(file_store)
 
         # compruebo si esa reserva esta en el almacen
         reservation = my_store_reservation.find_reservation(my_localizer, store_list)
@@ -145,21 +143,3 @@ class HotelReservation:
         if new_reservation.localizer != my_localizer:
             raise HotelManagementException("Error: reservation has been manipulated")
         return new_reservation
-
-    @classmethod
-    def load_reservation_store(self, file_store):
-        try:
-            with open(file_store, "r", encoding="utf-8", newline="") as file:
-                store_list = json.load(file)
-        except FileNotFoundError as exception:
-            raise HotelManagementException("Error: store reservation not found") from exception
-        except json.JSONDecodeError as exception:
-            raise HotelManagementException("JSON Decode Error - Wrong JSON Format") from exception
-        return store_list
-
-    @classmethod
-    def find_reservation(self, my_localizer, store_list):
-        for item in store_list:
-            if my_localizer == item["_HotelReservation__localizer"]:
-                return item
-            raise HotelManagementException("Error: localizer not found")
