@@ -52,15 +52,6 @@ class HotelReservation:
                      }
         return "HotelReservation:" + json_info.__str__()
 
-    @classmethod
-    def save_reservation(cls, my_reservation):
-        my_store_reservation = JsonStoreReservation()
-        my_store_reservation.find_item(my_reservation.localizer,
-                                       "_HotelReservation__localizer",
-                                       my_reservation.id_card,
-                                       "_HotelReservation__id_card")
-        my_store_reservation.add_item_list(my_reservation)
-
     @property
     def credit_card(self):
         """property for getting and setting the credit_card number"""
@@ -96,6 +87,15 @@ class HotelReservation:
     def num_days(self):
         """property for getting the num_days"""
         return self.__num_days
+
+    @classmethod
+    def save_reservation(cls, my_reservation):
+        my_store_reservation = JsonStoreReservation()
+        my_store_reservation.find_item(my_reservation.localizer,
+                                       "_HotelReservation__localizer",
+                                       my_reservation.id_card,
+                                       "_HotelReservation__id_card")
+        my_store_reservation.add_item_list(my_reservation)
 
     @classmethod
     def create_reservation_from_arrival(cls, my_id_card, my_localizer):

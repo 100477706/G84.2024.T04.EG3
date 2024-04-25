@@ -53,33 +53,9 @@ class HotelManager:
                                               arrival=arrival_date,
                                               num_days=num_days)
 
-            #leo los datos del fichero si existe , y si no existe creo una lista vacia
-            #my_new_reservation = JsonStoreReservation()
-
-            #Cargo los datos
-            #my_new_reservation.load_json_store()
-
-            #compruebo que esta reserva no esta en la lista
-
-            #añado los datos de mi reserva a la lista , a lo que hubiera
-            #my_new_reservation.add_item_list(my_reservation)
-
-            #escribo la lista en el fichero
-            #my_new_reservation.save_json_store()
-
-            #Llamamos a Hotel Reservation
-            my_new_reservation = HotelReservation
-            my_new_reservation.save_reservation(my_reservation)
+            HotelReservation.save_reservation(my_reservation)
 
             return my_reservation.localizer
-
-        # def save_reservation(self, my_reservation):
-        #     my_store_reservation = JsonStoreReservation()
-        #     my_store_reservation.find_item(my_reservation.localizer,
-        #                                          "_HotelReservation__localizer",
-        #                                          my_reservation.id_card,
-        #                                          "_HotelReservation__id_card")
-        #     my_store_reservation.add_item_list(my_reservation)
 
 
         def guest_arrival(self, file_input: str)->str:
