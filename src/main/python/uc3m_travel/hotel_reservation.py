@@ -91,10 +91,10 @@ class HotelReservation:
     @classmethod
     def save_reservation(cls, my_reservation):
         my_store_reservation = JsonStoreReservation()
-        my_store_reservation.find_item(my_reservation.localizer,
-                                       "_HotelReservation__localizer",
-                                       my_reservation.id_card,
-                                       "_HotelReservation__id_card")
+        my_store_reservation.find_item_reservation(value1=my_reservation.localizer,
+                                       key1="_HotelReservation__localizer",
+                                       value2=my_reservation.id_card,
+                                       key2="_HotelReservation__id_card")
         my_store_reservation.add_item_list(my_reservation)
 
     @classmethod

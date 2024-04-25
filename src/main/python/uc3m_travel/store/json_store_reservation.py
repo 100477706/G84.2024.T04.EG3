@@ -10,7 +10,7 @@ class JsonStoreReservation(JsonStoreFather):
         _file_name = JSON_FILES_PATH + "store_reservation.json"
         _error_message_find = ""
 
-        def find_item(self, value1, key1, value2, key2):
+        def find_item_reservation(self, value1, key1, value2, key2):
             self.load_json_store(self._file_name)
             self._error_message_find = "Reservation already exists"
             super().find_item(value1, key1)
