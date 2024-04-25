@@ -149,13 +149,6 @@ class HotelManager:
                 if my_checkin.room_key == item["_HotelStay__room_key"]:
                     raise HotelManagementException("ckeckin  ya realizado")
 
-        def find_reservation(self, my_localizer, store_list):
-            for item in store_list:
-                if my_localizer == item["_HotelReservation__localizer"]:
-                    return item
-                raise HotelManagementException("Error: localizer not found")
-
-
         def guest_checkout(self, room_key: str)->bool:
             """manages the checkout of a guest"""
             self.validate_roomkey(room_key)
