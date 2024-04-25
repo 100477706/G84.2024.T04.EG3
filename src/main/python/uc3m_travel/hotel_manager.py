@@ -239,16 +239,6 @@ class HotelManager:
 
             return True
 
-        def read_input_checkout_file(self, file_store):
-            try:
-                with open(file_store, "r", encoding="utf-8", newline="") as file:
-                    room_key_list = json.load(file)
-            except FileNotFoundError as exception:
-                raise HotelManagementException("Error: store checkin not found") from exception
-            except json.JSONDecodeError as exception:
-                raise HotelManagementException("JSON Decode Error - Wrong JSON Format") from exception
-            return room_key_list
-
     __instance = None
 
     def __new__(cls):
