@@ -74,6 +74,13 @@ class HotelStay():
         self.__departure = value
 
     @classmethod
+    def save_roomkey(self, my_checkin):
+        my_store_checkin = JsonStoreGuestArrival()
+        my_store_checkin.find_item_checkin(value=my_checkin.room_key,
+                                           key="_HotelStay__room_key")
+        my_store_checkin.add_item_list(my_checkin)
+
+    @classmethod
     def create_guest_arrival(cls, file_input):
         my_store_arrival = JsonStoreGuestArrival()
         my_store_arrival.read_input_file(file_input)

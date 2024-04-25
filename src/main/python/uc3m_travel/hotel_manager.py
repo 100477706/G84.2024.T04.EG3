@@ -62,7 +62,7 @@ class HotelManager:
             """manages the arrival of a guest with a reservation"""
             my_checkin = HotelStay.create_guest_arrival(file_input)
 
-            self.save_roomkey(my_checkin)
+            HotelStay.save_roomkey(my_checkin)
 
             #Ahora lo guardo en el almacen nuevo de checkin
             # escribo el fichero Json con todos los datos
@@ -86,11 +86,11 @@ class HotelManager:
 
             return my_checkin.room_key
 
-        def save_roomkey(self, my_checkin):
-            my_store_checkin = JsonStoreGuestArrival()
-            my_store_checkin.find_item_checkin(value=my_checkin.room_key,
-                                           key="_HotelStay__room_key")
-            my_store_checkin.add_item_list(my_checkin)
+        # def save_roomkey(self, my_checkin):
+        #     my_store_checkin = JsonStoreGuestArrival()
+        #     my_store_checkin.find_item_checkin(value=my_checkin.room_key,
+        #                                    key="_HotelStay__room_key")
+        #     my_store_checkin.add_item_list(my_checkin)
 
         # def find_in_list_checkin(self, my_checkin, room_key_list):
         #     for item in room_key_list:
