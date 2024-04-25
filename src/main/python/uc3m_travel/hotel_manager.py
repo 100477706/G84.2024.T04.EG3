@@ -11,7 +11,6 @@ from uc3m_travel.store.json_store import JsonStore
 from uc3m_travel.attribute.attribute_localizer import Localizer
 from uc3m_travel.attribute.attribute_idcard import IdCard
 from uc3m_travel.store.json_store_reservation import JsonStoreReservation
-from uc3m_travel.hotel_reservation import HotelReservation
 
 
 
@@ -65,17 +64,19 @@ class HotelManager:
             #escribo la lista en el fichero
             #my_new_reservation.save_json_store()
 
-            self.save_reservation(my_reservation)
+            #Llamamos a Hotel Reservation
+            my_new_reservation = HotelReservation
+            my_new_reservation.save_reservation(self, my_reservation)
 
             return my_reservation.localizer
 
-        def save_reservation(self, my_reservation):
-            my_store_reservation = JsonStoreReservation()
-            my_store_reservation.find_item(my_reservation.localizer,
-                                                 "_HotelReservation__localizer",
-                                                 my_reservation.id_card,
-                                                 "_HotelReservation__id_card")
-            my_store_reservation.add_item_list(my_reservation)
+        # def save_reservation(self, my_reservation):
+        #     my_store_reservation = JsonStoreReservation()
+        #     my_store_reservation.find_item(my_reservation.localizer,
+        #                                          "_HotelReservation__localizer",
+        #                                          my_reservation.id_card,
+        #                                          "_HotelReservation__id_card")
+        #     my_store_reservation.add_item_list(my_reservation)
 
 
         def guest_arrival(self, file_input: str)->str:

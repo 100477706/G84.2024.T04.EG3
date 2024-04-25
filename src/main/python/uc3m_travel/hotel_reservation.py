@@ -48,6 +48,15 @@ class HotelReservation:
                      "room_type": self.__room_type,
                      }
         return "HotelReservation:" + json_info.__str__()
+
+    def save_reservation(self, my_reservation):
+        my_store_reservation = JsonStoreReservation()
+        my_store_reservation.find_item(my_reservation.localizer,
+                                       "_HotelReservation__localizer",
+                                       my_reservation.id_card,
+                                       "_HotelReservation__id_card")
+        my_store_reservation.add_item_list(my_reservation)
+
     @property
     def credit_card(self):
         """property for getting and setting the credit_card number"""
