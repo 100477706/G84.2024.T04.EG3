@@ -52,7 +52,8 @@ class HotelReservation:
                      }
         return "HotelReservation:" + json_info.__str__()
 
-    def save_reservation(self, my_reservation):
+    @classmethod
+    def save_reservation(cls, my_reservation):
         my_store_reservation = JsonStoreReservation()
         my_store_reservation.find_item(my_reservation.localizer,
                                        "_HotelReservation__localizer",

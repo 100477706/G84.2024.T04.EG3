@@ -69,7 +69,7 @@ class HotelManager:
 
             #Llamamos a Hotel Reservation
             my_new_reservation = HotelReservation
-            my_new_reservation.save_reservation(self, my_reservation)
+            my_new_reservation.save_reservation(my_reservation)
 
             return my_reservation.localizer
 
