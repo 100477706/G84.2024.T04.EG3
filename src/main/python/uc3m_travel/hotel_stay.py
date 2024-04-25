@@ -76,10 +76,10 @@ class HotelStay():
     @classmethod
     def create_guest_arrival(cls, file_input):
         my_store_arrival = JsonStoreGuestArrival()
-        input_list = my_store_arrival.read_input_file(file_input)
+        my_store_arrival.read_input_file(file_input)
 
         # comprobar valores del fichero
-        my_id_card, my_localizer = cls.read_input_data_from_file(input_list)
+        my_id_card, my_localizer = my_store_arrival.read_input_data_from_file()
 
         # Llamado al metodo que esta en hotel reservation
         new_reservation = HotelReservation.create_reservation_from_arrival \

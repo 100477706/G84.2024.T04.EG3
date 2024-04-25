@@ -18,5 +18,13 @@ class JsonStoreGuestArrival(JsonStoreFather):
             raise HotelManagementException("JSON Decode Error - Wrong JSON Format") from exception
         return self._data_list
 
+    def read_input_data_from_file(self):
+        try:
+            my_localizer = self._data_list["Localizer"]
+            my_id_card = self._data_list["IdCard"]
+        except KeyError as exception:
+            raise HotelManagementException("Error - Invalid Key in JSON") from exception
+        return my_id_card, my_localizer
+
 
 
