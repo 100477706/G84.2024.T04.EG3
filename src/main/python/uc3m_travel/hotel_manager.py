@@ -10,7 +10,7 @@ from freezegun import freeze_time
 from uc3m_travel.store.json_store import JsonStore
 from uc3m_travel.attribute.attribute_localizer import Localizer
 from uc3m_travel.attribute.attribute_idcard import IdCard
-from uc3m_travel.store.json_store_reservation_ import JsonStoreReservation
+from uc3m_travel.store.json_store_reservation import JsonStoreReservation
 from uc3m_travel.hotel_reservation import HotelReservation
 
 
