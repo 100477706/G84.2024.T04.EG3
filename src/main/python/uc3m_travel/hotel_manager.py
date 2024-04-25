@@ -93,8 +93,7 @@ class HotelManager:
             #new_reservation = self.create_reservation_from_arrival(my_id_card, my_localizer)
 
             #Llamado al metodo que esta en hotel reservation
-            new_reservation = HotelReservation.create_reservation_from_arrival\
-                (my_id_card, my_localizer)
+            new_reservation = HotelReservation.create_reservation_from_arrival(my_id_card, my_localizer)
 
             # compruebo si hoy es la fecha de checkin
             reservation_format = "%d/%m/%Y"
@@ -126,49 +125,6 @@ class HotelManager:
             save_list.save_json_store(file_store , room_key_list)
 
             return my_checkin.room_key
-
-        def create_reservation_from_arrival(self, my_id_card, my_localizer):
-            # Validamos el IdCard
-            my_id_card = IdCard(my_id_card).value
-
-            # Validamos el localizer
-            my_localizer = Localizer(my_localizer).value
-
-            # buscar en almacen
-            file_store = JSON_FILES_PATH + "store_reservation.json"
-
-            # leo los datos del fichero , si no existe deber dar error porque el almacen de reservaa
-            # debe existir para hacer el checkin
-            store_list = JsonStoreGuestArrival().load_reservation_store(file_store)
-
-            # compruebo si esa reserva esta en el almacen
-            reservation = self.find_reservation(my_localizer, store_list)
-
-            if my_id_card != reservation["_HotelReservation__id_card"]:
-                raise HotelManagementException("Error: Localizer is not correct for this IdCard")
-
-            # regenrar clave y ver si coincide
-            reservation_date = datetime.fromtimestamp(reservation[
-                                                          "_HotelReservation__reservation_date"])
-
-            with freeze_time(reservation_date):
-                new_reservation = HotelReservation(credit_card_number=reservation[
-                    "_HotelReservation__credit_card_number"],
-                                                   id_card=reservation[
-                                                       "_HotelReservation__id_card"],
-                                                   num_days=reservation[
-                                                       "_HotelReservation__num_days"],
-                                                   room_type=reservation[
-                                                       "_HotelReservation__room_type"],
-                                                   arrival=reservation[
-                                                       "_HotelReservation__arrival"],
-                                                   name_surname=reservation[
-                                                       "_HotelReservation__name_surname"],
-                                                   phone_number=reservation[
-                                                       "_HotelReservation__phone_number"])
-            if new_reservation.localizer != my_localizer:
-                raise HotelManagementException("Error: reservation has been manipulated")
-            return new_reservation
 
         def read_input_file(self, file_input):
             try:
