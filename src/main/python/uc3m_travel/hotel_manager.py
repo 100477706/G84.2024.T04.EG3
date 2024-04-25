@@ -121,9 +121,9 @@ class HotelManager:
 
         def create_reservation_from_arrival(self, my_id_card, my_localizer):
             # Validamos el IdCard
-            IdCard(my_id_card)
+            my_id_card = IdCard(my_id_card).value
             # Validamos el localizer
-            Localizer(my_localizer)
+            my_localizer = Localizer(my_localizer).value
             # buscar en almacen
             file_store = JSON_FILES_PATH + "store_reservation.json"
             # leo los datos del fichero , si no existe deber dar error porque el almacen de reservaa
