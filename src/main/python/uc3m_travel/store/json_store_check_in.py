@@ -41,6 +41,7 @@ class JsonStoreGuestArrival(JsonStoreFather):
             except json.JSONDecodeError as exception:
                 raise HotelManagementException("JSON Decode Error - Wrong JSON Format") from exception
             return self._data_list
+
     __instance = None
     def __new__(cls):
         if not JsonStoreGuestArrival.__instance:
