@@ -1,6 +1,4 @@
 """Module for the hotel manager"""
-import re
-from uc3m_travel.hotel_management_exception import HotelManagementException
 from uc3m_travel.hotel_reservation import HotelReservation
 from uc3m_travel.hotel_stay import HotelStay
 from uc3m_travel.hotel_departure import HotelDeparture
