@@ -16,7 +16,7 @@ from uc3m_travel.store.json_store_reservation import JsonStoreReservation
 
 class HotelReservation:
     """Class for representing hotel reservations"""
-    # pylint: disable=too-many-arguments, too-many-instance-attributes
+    # pylint: disable=too-many-arguments, too-many-instance-attributes, no-member
     def __init__(self,
                  id_card: str,
                  credit_card_number: str,

@@ -5,6 +5,7 @@ from uc3m_travel.hotel_departure import HotelDeparture
 
 
 class HotelManager:
+    # pylint: disable = C0103
     class __HotelManager:
         """Class with all the methods for managing reservations and stays"""
         def __init__(self):
