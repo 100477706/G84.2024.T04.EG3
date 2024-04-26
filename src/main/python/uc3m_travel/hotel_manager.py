@@ -12,13 +12,13 @@ class HotelManager:
 
         # pylint: disable=too-many-arguments
         def room_reservation(self,
-                             credit_card:str,
-                             name_surname:str,
-                             id_card:str,
-                             phone_number:str,
-                             room_type:str,
+                             credit_card: str,
+                             name_surname: str,
+                             id_card: str,
+                             phone_number: str,
+                             room_type: str,
                              arrival_date: str,
-                             num_days:int)->str:
+                             num_days: int) -> str:
             """manges the hotel reservation: creates a reservation and saves it into a json file"""
 
             my_reservation = HotelReservation(id_card=id_card,
@@ -33,15 +33,14 @@ class HotelManager:
 
             return my_reservation.localizer
 
-
-        def guest_arrival(self, file_input: str)->str:
+        def guest_arrival(self, file_input: str) -> str:
             """manages the arrival of a guest with a reservation"""
             my_checkin = HotelStay.create_guest_arrival(file_input)
             HotelStay.save_roomkey(my_checkin)
 
             return my_checkin.room_key
 
-        def guest_checkout(self, room_key: str)->bool:
+        def guest_checkout(self, room_key: str) -> bool:
             """manages the checkout of a guest"""
             HotelDeparture.search_room_key_for_client(room_key)
             HotelDeparture.departure_for_client(room_key)

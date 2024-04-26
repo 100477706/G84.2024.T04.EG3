@@ -1,6 +1,9 @@
 [MAIN]
 
-disable = C0114 #deshabilitamos el docstring
+disable= C0114,
+         C0115,
+         C0116,
+         R0903,
 
 # Analyse import fallback blocks. This can be used to support both Python 2 and
 # 3 compatible code, which means that the block might have code that exists
