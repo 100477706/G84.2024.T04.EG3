@@ -46,5 +46,5 @@ class HotelDeparture:
         checkout_store = JsonStoreCheckOut()
         # JsonStoreCheckOut().IsGuestOut(room_key_list, room_key)
         checkout_store.IsGuestOut(room_key_list, room_key)
-        save_list = JsonStore()
+        save_list = JsonStoreFather()
         save_list.save_json_store(file_store_checkout, room_key_list)
