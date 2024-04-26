@@ -4,6 +4,7 @@ from uc3m_travel.hotel_management_exception import HotelManagementException
 from uc3m_travel.store.json_store_father import JsonStoreFather
 from uc3m_travel.hotel_management_config import JSON_FILES_PATH
 
+
 class JsonStoreReservation(JsonStoreFather):
     class __JsonStoreReservation(JsonStoreFather):
         _data_list = []
@@ -33,7 +34,6 @@ class JsonStoreReservation(JsonStoreFather):
                 if my_localizer == item["_HotelReservation__localizer"]:
                     return item
                 raise HotelManagementException("Error: localizer not found")
-
 
     # esto en la clase reservation_json_store
     __instance = None
