@@ -12,6 +12,7 @@ from uc3m_travel.store.json_store_check_in import JsonStoreGuestArrival
 
 class HotelStay:
     """Class for representing hotel stays"""
+    # pylint: disable = no-member
     def __init__(self,
                  idcard: str,
                  localizer: str,
