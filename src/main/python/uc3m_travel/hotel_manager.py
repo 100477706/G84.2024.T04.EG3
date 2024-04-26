@@ -71,26 +71,64 @@ class HotelManager:
             #check that the roomkey is stored in the checkins file
             file_store = JSON_FILES_PATH + "store_check_in.json"
 
+            checkout_store = JsonStoreGuestArrival()
+            #room_key_list = self.read_input_checkout_file(file_store)
 
-            room_key_list = JsonStoreCheckOut().read_input_checkout_file(file_store)
+            room_key_list = checkout_store.read_input_checkout_file()
 
             # comprobar que esa room_key es la que me han dado
-            departure_date_timestamp = JsonStoreCheckOut().find_in_list_checkout(room_key, room_key_list)
+            departure_date_timestamp = self.find_in_list_checkout\
+                (room_key, room_key_list)
 
             HotelDeparture(room_key).is_today_departure(departure_date_timestamp)
 
+
+            #### HACE UN FIND ####
             file_store_checkout = JSON_FILES_PATH + "store_check_out.json"
 
             my_store_resersvation = JsonStore()
             room_key_list = my_store_resersvation.load_json_store(file_store_checkout)
 
-            JsonStoreCheckOut().IsGuestOut(room_key_list, room_key)
+            # JsonStoreCheckOut().IsGuestOut(room_key_list, room_key)
+            self.IsGuestOut(room_key_list, room_key)
 
             save_list = JsonStore()
 
             save_list.save_json_store(file_store_checkout, room_key_list)
 
             return True
+
+        def read_input_checkout_file(self, file_store):
+            try:
+                with open(file_store, "r", encoding="utf-8", newline="") as file:
+                    room_key_list = json.load(file)
+            except FileNotFoundError as exception:
+                raise HotelManagementException("Error: store checkin not found") from exception
+            except json.JSONDecodeError as exception:
+                raise HotelManagementException(
+                    "JSON Decode Error - Wrong JSON Format") from exception
+            return room_key_list
+
+        def IsGuestOut(self, room_key_list, room_key):
+            for checkout in room_key_list:
+                if checkout["room_key"] == room_key:
+                    raise HotelManagementException("Guest is already out")
+
+            room_checkout = {"room_key": room_key,
+                             "checkout_time": datetime.timestamp(datetime.utcnow())}
+
+            room_key_list.append(room_checkout)
+
+        def find_in_list_checkout(self, room_key, room_key_list):
+            found = False
+            for item in room_key_list:
+                if room_key == item["_HotelStay__room_key"]:
+                    departure_date_timestamp = item["_HotelStay__departure"]
+                    found = True
+            if not found:
+                raise HotelManagementException("Error: room key not found")
+            return departure_date_timestamp
+
 
     __instance = None
 

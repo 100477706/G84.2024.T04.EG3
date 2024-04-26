@@ -31,3 +31,12 @@ class JsonStoreGuestArrival(JsonStoreFather):
         self._error_message_find = "ckeckin  ya realizado"
         super().find_item(value, key)
 
+    def read_input_checkout_file(self):
+        try:
+            with open(self._file_name, "r", encoding="utf-8", newline="") as file:
+                self._data_list = json.load(file)
+        except FileNotFoundError as exception:
+            raise HotelManagementException("Error: store checkin not found") from exception
+        except json.JSONDecodeError as exception:
+            raise HotelManagementException("JSON Decode Error - Wrong JSON Format") from exception
+        return self._data_list
