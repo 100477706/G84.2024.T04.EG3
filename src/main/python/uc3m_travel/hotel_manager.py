@@ -11,7 +11,8 @@ class HotelManager:
             pass
 
         # pylint: disable=too-many-arguments
-        def room_reservation(self,
+        @staticmethod
+        def room_reservation(
                              credit_card: str,
                              name_surname: str,
                              id_card: str,
@@ -33,14 +34,16 @@ class HotelManager:
 
             return my_reservation.localizer
 
-        def guest_arrival(self, file_input: str) -> str:
+        @staticmethod
+        def guest_arrival(file_input: str) -> str:
             """manages the arrival of a guest with a reservation"""
             my_checkin = HotelStay.create_guest_arrival(file_input)
             HotelStay.save_roomkey(my_checkin)
 
             return my_checkin.room_key
 
-        def guest_checkout(self, room_key: str) -> bool:
+        @staticmethod
+        def guest_checkout(room_key: str) -> bool:
             """manages the checkout of a guest"""
             HotelDeparture.search_room_key_for_client(room_key)
             HotelDeparture.departure_for_client(room_key)
