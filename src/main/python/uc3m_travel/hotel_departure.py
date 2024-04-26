@@ -1,6 +1,5 @@
 from datetime import datetime
 from uc3m_travel.hotel_management_exception import HotelManagementException
-from uc3m_travel.store.json_store import JsonStore
 from uc3m_travel.store.json_store_father import JsonStoreFather
 from uc3m_travel.store.json_store_check_in import JsonStoreGuestArrival
 from uc3m_travel.store.json_store_check_out import JsonStoreCheckOut
