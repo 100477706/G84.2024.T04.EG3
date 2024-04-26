@@ -11,7 +11,7 @@ class JsonStoreCheckOut(JsonStoreFather):
         _file_name = JSON_FILES_PATH + "store_check_out_.json"
         _error_message_find = "Guest is already out"
 
-        def IsGuestOut(self, room_key_list,room_key):
+        def is_guest_out(self, room_key_list, room_key):
             for checkout in room_key_list:
                 if checkout["room_key"] == room_key:
                     raise HotelManagementException(self._error_message_find)

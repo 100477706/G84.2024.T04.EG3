@@ -6,6 +6,7 @@ from uc3m_travel.store.json_store_check_out import JsonStoreCheckOut
 from uc3m_travel.hotel_management_config import JSON_FILES_PATH
 from uc3m_travel.attribute.attribute_room_key import RoomKey
 
+
 class HotelDeparture:
     def __init__(self, room_key):
         self.__room_key = RoomKey(room_key).value
@@ -27,23 +28,22 @@ class HotelDeparture:
             raise HotelManagementException("Error: today is not the departure day")
 
     @classmethod
-    def search_room_key_for_client(self, room_key):
+    def search_room_key_for_client(cls, room_key):
         RoomKey(room_key).value
         # check that the roomkey is stored in the checkins file
         checkin_store = JsonStoreGuestArrival()
         room_key_list = checkin_store.read_input_checkin_file()
         checkout_store = JsonStoreCheckOut()
         # comprobar que esa room_key es la que me han dado
-        departure_date_timestamp = checkout_store.find_in_list_checkout \
-            (room_key, room_key_list)
+        departure_date_timestamp = checkout_store.find_in_list_checkout(room_key, room_key_list)
         HotelDeparture(room_key).is_today_departure(departure_date_timestamp)
 
     @classmethod
-    def departure_for_client(self, room_key):
+    def departure_for_client(cls, room_key):
         file_store_checkout = JSON_FILES_PATH + "store_check_out.json"
         my_store_reservation = JsonStoreFather()
         room_key_list = my_store_reservation.load_json_store(file_store_checkout)
         checkout_store = JsonStoreCheckOut()
-        checkout_store.IsGuestOut(room_key_list, room_key)
+        checkout_store.is_guest_out(room_key_list, room_key)
         save_list = JsonStoreCheckOut()
         save_list.save_checkout(file_store_checkout, room_key_list)
