@@ -13,17 +13,18 @@ from uc3m_travel.attribute.attribute_num_days import NumDays
 from uc3m_travel.attribute.attribute_localizer import Localizer
 from uc3m_travel.store.json_store_reservation import JsonStoreReservation
 
+
 class HotelReservation:
     """Class for representing hotel reservations"""
     # pylint: disable=too-many-arguments, too-many-instance-attributes
     def __init__(self,
-                 id_card:str,
-                 credit_card_number:str,
-                 name_surname:str,
-                 phone_number:str,
-                 room_type:str,
-                 arrival:str,
-                 num_days:int):
+                 id_card: str,
+                 credit_card_number: str,
+                 name_surname: str,
+                 phone_number: str,
+                 room_type: str,
+                 arrival: str,
+                 num_days: int):
         """constructor of reservation objects"""
         self.__credit_card_number = CreditCard(credit_card_number).value
         self.__id_card = IdCard(id_card).value
@@ -38,7 +39,7 @@ class HotelReservation:
 
     def __str__(self):
         """return a json string with the elements required to calculate the localizer"""
-        #VERY IMPORTANT: JSON KEYS CANNOT BE RENAMED
+        # VERY IMPORTANT: JSON KEYS CANNOT BE RENAMED
         json_info = {"id_card": self.__id_card,
                      "name_surname": self.__name_surname,
                      "credit_card": self.__credit_card_number,
@@ -54,6 +55,7 @@ class HotelReservation:
     def credit_card(self):
         """property for getting and setting the credit_card number"""
         return self.__credit_card_number
+
     @credit_card.setter
     def credit_card(self, value):
         self.__credit_card_number = value
@@ -62,6 +64,7 @@ class HotelReservation:
     def id_card(self):
         """property for getting and setting the id_card"""
         return self.__id_card
+
     @id_card.setter
     def id_card(self, value):
         self.__id_card = value
@@ -90,9 +93,9 @@ class HotelReservation:
     def save_reservation(cls, my_reservation):
         my_store_reservation = JsonStoreReservation()
         my_store_reservation.find_item_reservation(value1=my_reservation.localizer,
-                                       key1="_HotelReservation__localizer",
-                                       value2=my_reservation.id_card,
-                                       key2="_HotelReservation__id_card")
+                                                   key1="_HotelReservation__localizer",
+                                                   value2=my_reservation.id_card,
+                                                   key2="_HotelReservation__id_card")
         my_store_reservation.add_item_list(my_reservation)
 
     @classmethod
@@ -106,11 +109,11 @@ class HotelReservation:
         # buscar en almacen
         my_store_reservation = JsonStoreReservation()
 
-        # leo los datos del fichero , si no existe deber dar error porque el almacen de reservaa
+        # leo los datos del fichero , si no existe deber dar error porque el almacén de reservas
         # debe existir para hacer el checkin
         store_list = my_store_reservation.load_reservation_store()
 
-        # compruebo si esa reserva esta en el almacen
+        # compruebo si esa reserva está en el almacén
         reservation = my_store_reservation.find_reservation(my_localizer, store_list)
 
         if my_id_card != reservation["_HotelReservation__id_card"]:
