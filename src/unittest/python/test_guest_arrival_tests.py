@@ -12,9 +12,10 @@ from uc3m_travel import (JSON_FILES_PATH,
                          HotelManager,
                          HotelManagementException)
 
+
 class TestHotelReservation(TestCase):
     """Class for testing deliver_product"""
-
+    # pylint: disable = no-member
     def setUp(self):
         """ initilize the content of the json files """
         fichero = "store_check_in.json"
@@ -29,11 +30,10 @@ class TestHotelReservation(TestCase):
             print("deleted reservation")
             remove(my_file)
 
-
-        ##insert the reservation
+        # insert the reservation
         with freeze_time("2024/03/22 13:00:00"):
             hotel_mngr = HotelManager()
-            #first reservation for valid
+            # first reservation for valid
             localizer = hotel_mngr.room_reservation(credit_card="5105105105105100",
                                                     name_surname="JOSE LOPEZ",
                                                     id_card="12345678Z",
@@ -42,7 +42,6 @@ class TestHotelReservation(TestCase):
                                                     arrival_date="01/07/2024",
                                                     num_days=1)
             self.assertEqual(localizer, "450a53be9b39944e62e7164ca5f5aadf")
-
 
     @staticmethod
     def read_file():
@@ -63,7 +62,7 @@ class TestHotelReservation(TestCase):
         test_file = JSON_FILES_GUEST_ARRIVAL + "key_ok.json"
         mngr = HotelManager()
         checkins_file = JSON_FILES_PATH + "store_check_in.json"
-        #we calculater the files signature bejore calling the tested method
+        # we calculater the files signature bejore calling the tested method
         if os.path.isfile(checkins_file):
             with open(checkins_file, "r", encoding="utf-8", newline="") as file_org:
                 hash_original = hashlib.md5(str(file_org).encode()).hexdigest()
@@ -74,7 +73,7 @@ class TestHotelReservation(TestCase):
             mngr.guest_arrival(test_file)
         self.assertEqual(c_m.exception.message, "Error: today is not reservation date")
 
-        #now we check that the signature of the file is the same (the file didn't change)
+        # now we check that the signature of the file is the same (the file didn't change)
         if os.path.isfile(checkins_file):
             with open(checkins_file, "r", encoding="utf-8", newline="") as file:
                 hash_new = hashlib.md5(str(file).encode()).hexdigest()
@@ -83,7 +82,7 @@ class TestHotelReservation(TestCase):
         self.assertEqual(hash_new, hash_original)
 
     @freeze_time("2024/07/01 13:00:00")
-    #pylint: disable=too-many-locals
+    # pylint: disable=too-many-locals
     def test_parametrized_cases_tests(self):
         """Parametrized cases read from testingCases_RF2.csv
         time is set to 01/07/2024 since it is the chosen for the valid case"""
@@ -120,7 +119,7 @@ class TestHotelReservation(TestCase):
                             hash_original = ""
 
                         with self.assertRaises(HotelManagementException) as c_m:
-                            valor = mngr.guest_arrival(test_file)
+                            mngr.guest_arrival(test_file)
                         self.assertEqual(c_m.exception.message, result)
                         if os.path.isfile(checkins_file):
                             with open(checkins_file, "r", encoding="utf-8", newline="") as file:
@@ -129,25 +128,24 @@ class TestHotelReservation(TestCase):
                             hash_new = ""
                         self.assertEqual(hash_new, hash_original)
 
-
     @freeze_time("2024/07/01 13:00:00")
-    def test_get_reservation_data_manipulated_tests( self ):
+    def test_get_reservation_data_manipulated_tests(self):
         """store_reservation_manipulated.json has a reservation manipulated with SUITE and 5 days
         insetad of SINGLE one day reservation"""
         file_test = JSON_FILES_GUEST_ARRIVAL + "key_ok.json"
         my_manager = HotelManager()
         reservations_file = JSON_FILES_PATH + "store_reservation.json"
         checkins_file = JSON_FILES_PATH + "store_check_in.json"
-        #swap file preserves an eventual previous reservation json file
+        # swap file preserves an eventual previous reservation json file
         if os.path.isfile(JSON_FILES_PATH + "swap.json"):
             os.remove(JSON_FILES_PATH + "swap.json")
         if not os.path.isfile(JSON_FILES_PATH + "store_reservation_manipulated.json"):
             shutil.copy(JSON_FILES_GUEST_ARRIVAL + "store_reservation_manipulated.json",
                         JSON_FILES_PATH + "store_reservation_manipulated.json")
-        #rename the manipulated order's store
+        # rename the manipulated order's store
         if os.path.isfile(reservations_file):
             os.rename(reservations_file, JSON_FILES_PATH + "swap.json")
-        os.rename(JSON_FILES_PATH + "store_reservation_manipulated.json",reservations_file)
+        os.rename(JSON_FILES_PATH + "store_reservation_manipulated.json", reservations_file)
 
         # read the file to compare file content before and after method call
         if os.path.isfile(checkins_file):
@@ -160,12 +158,12 @@ class TestHotelReservation(TestCase):
         exception_message = "Exception not raised"
         try:
             my_manager.guest_arrival(file_test)
-        #pylint: disable=broad-except
+        # pylint: disable=broad-except
         except Exception as exception_raised:
-            #we catch a generic exception to avoid unexpected problems
+            # we catch a generic exception to avoid unexpected problems
             exception_message = str(exception_raised)
 
-        #restore the original orders' store
+        # restore the original orders' store
         os.rename(reservations_file, JSON_FILES_PATH + "store_reservation_manipulated.json")
         if os.path.isfile(JSON_FILES_PATH + "swap.json"):
 
