@@ -1,5 +1,6 @@
 from uc3m_travel.attribute.attribute import Attribute
 
+
 class RoomType(Attribute):
 
     def __init__(self, attr_value):

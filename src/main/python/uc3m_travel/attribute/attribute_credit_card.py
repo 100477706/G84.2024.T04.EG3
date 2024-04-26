@@ -1,6 +1,7 @@
 from uc3m_travel.attribute.attribute import Attribute
 from uc3m_travel.hotel_management_exception import HotelManagementException
 
+
 class CreditCard(Attribute):
 
     def __init__(self, attr_value):
