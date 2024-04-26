@@ -1,4 +1,4 @@
-''' Class HotelStay (GE2.2) '''
+""" Class HotelStay (GE2.2) """
 
 from datetime import datetime
 import hashlib
@@ -10,13 +10,13 @@ from uc3m_travel.hotel_management_exception import HotelManagementException
 from uc3m_travel.store.json_store_check_in import JsonStoreGuestArrival
 
 
-class HotelStay():
+class HotelStay:
     """Class for representing hotel stays"""
     def __init__(self,
-                 idcard:str,
-                 localizer:str,
-                 numdays:int,
-                 roomtype:str):
+                 idcard: str,
+                 localizer: str,
+                 numdays: int,
+                 roomtype: str):
         """constructor for HotelStay objects"""
         self.__alg = "SHA-256"
         self.__type = RoomType(roomtype).value
@@ -24,8 +24,8 @@ class HotelStay():
         self.__localizer = Localizer(localizer).value
         justnow = datetime.utcnow()
         self.__arrival = datetime.timestamp(justnow)
-        #timestamp is represented in seconds.miliseconds
-        #to add the number of days we must express num_days in seconds
+        # timestamp is represented in seconds.miliseconds
+        # to add the number of days we must express num_days in seconds
         self.__departure = self.__arrival + (numdays * 24 * 60 * 60)
         self.__room_key = hashlib.sha256(self.__signature_string().encode()).hexdigest()
 
@@ -74,7 +74,7 @@ class HotelStay():
         self.__departure = value
 
     @classmethod
-    def save_roomkey(self, my_checkin):
+    def save_roomkey(cls, my_checkin):
         my_store_checkin = JsonStoreGuestArrival()
         my_store_checkin.find_item_checkin(value=my_checkin.room_key,
                                            key="_HotelStay__room_key")
@@ -89,8 +89,7 @@ class HotelStay():
         my_id_card, my_localizer = my_store_arrival.read_input_data_from_file()
 
         # Llamado al metodo que esta en hotel reservation
-        new_reservation = HotelReservation.create_reservation_from_arrival \
-            (my_id_card, my_localizer)
+        new_reservation = HotelReservation.create_reservation_from_arrival(my_id_card, my_localizer)
 
         # compruebo si hoy es la fecha de checkin
         reservation_format = "%d/%m/%Y"
