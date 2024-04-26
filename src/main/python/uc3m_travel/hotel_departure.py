@@ -1,7 +1,9 @@
 from datetime import datetime
 from uc3m_travel.hotel_management_exception import HotelManagementException
+from uc3m_travel.store.json_store import JsonStore
 from uc3m_travel.store.json_store_check_in import JsonStoreGuestArrival
 from uc3m_travel.store.json_store_check_out import JsonStoreCheckOut
+from uc3m_travel.hotel_management_config import JSON_FILES_PATH
 from uc3m_travel.attribute.attribute_room_key import RoomKey
 
 class HotelDeparture:
@@ -34,3 +36,14 @@ class HotelDeparture:
         departure_date_timestamp = checkout_store.find_in_list_checkout \
             (room_key, room_key_list)
         HotelDeparture(room_key).is_today_departure(departure_date_timestamp)
+
+    @classmethod
+    def departure_for_client(self, room_key):
+        file_store_checkout = JSON_FILES_PATH + "store_check_out.json"
+        my_store_reservation = JsonStore()
+        room_key_list = my_store_reservation.load_json_store(file_store_checkout)
+        checkout_store = JsonStoreCheckOut()
+        # JsonStoreCheckOut().IsGuestOut(room_key_list, room_key)
+        checkout_store.IsGuestOut(room_key_list, room_key)
+        save_list = JsonStore()
+        save_list.save_json_store(file_store_checkout, room_key_list)

@@ -69,20 +69,19 @@ class HotelManager:
             """manages the checkout of a guest"""
             self.validate_roomkey(room_key)
             HotelDeparture.search_room_key_for_client(room_key)
-
-            self.departure_for_client(room_key)
+            HotelDeparture.departure_for_client(room_key)
 
             return True
 
-        def departure_for_client(self, room_key):
-            file_store_checkout = JSON_FILES_PATH + "store_check_out.json"
-            my_store_reservation = JsonStore()
-            room_key_list = my_store_reservation.load_json_store(file_store_checkout)
-            checkout_store = JsonStoreCheckOut()
-            # JsonStoreCheckOut().IsGuestOut(room_key_list, room_key)
-            checkout_store.IsGuestOut(room_key_list, room_key)
-            save_list = JsonStore()
-            save_list.save_json_store(file_store_checkout, room_key_list)
+        # def departure_for_client(self, room_key):
+        #     file_store_checkout = JSON_FILES_PATH + "store_check_out.json"
+        #     my_store_reservation = JsonStore()
+        #     room_key_list = my_store_reservation.load_json_store(file_store_checkout)
+        #     checkout_store = JsonStoreCheckOut()
+        #     # JsonStoreCheckOut().IsGuestOut(room_key_list, room_key)
+        #     checkout_store.IsGuestOut(room_key_list, room_key)
+        #     save_list = JsonStore()
+        #     save_list.save_json_store(file_store_checkout, room_key_list)
 
         # def search_room_key_for_client(self, room_key):
         #     # check that the roomkey is stored in the checkins file
