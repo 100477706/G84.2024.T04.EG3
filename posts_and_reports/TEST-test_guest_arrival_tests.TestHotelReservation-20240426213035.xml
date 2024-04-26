@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="test_guest_arrival_tests.TestHotelReservation-20240426213035" tests="3" file="test_guest_arrival_tests.py" time="0.737" timestamp="2024-04-26T21:30:37" failures="0" errors="0" skipped="0">
+	<testcase classname="test_guest_arrival_tests.TestHotelReservation" name="test_case_valid_reservation_invalid_arrival_date" time="0.019" timestamp="2024-04-26T21:30:36"/>
+	<testcase classname="test_guest_arrival_tests.TestHotelReservation" name="test_get_reservation_data_manipulated_tests" time="0.028" timestamp="2024-04-26T21:30:36"/>
+	<testcase classname="test_guest_arrival_tests.TestHotelReservation" name="test_parametrized_cases_tests" time="0.690" timestamp="2024-04-26T21:30:37"/>
+</testsuite>

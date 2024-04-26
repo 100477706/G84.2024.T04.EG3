@@ -16,7 +16,8 @@ class JsonStoreGuestArrival(JsonStoreFather):
             except FileNotFoundError as exception:
                 raise HotelManagementException("Error: file input not found") from exception
             except json.JSONDecodeError as exception:
-                raise HotelManagementException("JSON Decode Error - Wrong JSON Format") from exception
+                raise HotelManagementException("JSON Decode Error - Wrong JSON Format") \
+                    from exception
             return self._data_list
 
         def read_input_data_from_file(self):
@@ -39,7 +40,8 @@ class JsonStoreGuestArrival(JsonStoreFather):
             except FileNotFoundError as exception:
                 raise HotelManagementException("Error: store checkin not found") from exception
             except json.JSONDecodeError as exception:
-                raise HotelManagementException("JSON Decode Error - Wrong JSON Format") from exception
+                raise HotelManagementException("JSON Decode Error - Wrong JSON Format") from \
+                    exception
             return self._data_list
     __instance = None
     def __new__(cls):
