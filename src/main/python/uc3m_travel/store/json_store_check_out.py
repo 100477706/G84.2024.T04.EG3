@@ -28,21 +28,3 @@ class JsonStoreCheckOut(JsonStoreFather):
         if not found:
             raise HotelManagementException("Error: room key not found")
         return departure_date_timestamp
-
-    # def read_input_checkout_file(self):
-    #     try:
-    #         with open(self._file_name, "r", encoding="utf-8", newline="") as file:
-    #             self._data_list = json.load(file)
-    #     except FileNotFoundError as exception:
-    #         raise HotelManagementException("Error: store checkin not found") from exception
-    #     except json.JSONDecodeError as exception:
-    #         raise HotelManagementException("JSON Decode Error - Wrong JSON Format") from exception
-    #     return self._data_list
-
-
-
-
-    """def add_item(self, value_to_add):
-        self.load_store(self._file_name)
-        self._data_list.append(value_to_add)
-        self.save_store(self._file_name)"""
