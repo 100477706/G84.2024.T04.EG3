@@ -8,7 +8,7 @@ from uc3m_travel.attribute.attribute_room_key import RoomKey
 
 class HotelDeparture:
     def __init__(self, room_key):
-        self.__room_key = room_key
+        self.__room_key = RoomKey(room_key).value
         self.__checkout_time = datetime.timestamp(datetime.utcnow())
 
     @property
@@ -28,6 +28,7 @@ class HotelDeparture:
 
     @classmethod
     def search_room_key_for_client(self, room_key):
+        RoomKey(room_key).value
         # check that the roomkey is stored in the checkins file
         checkin_store = JsonStoreGuestArrival()
         room_key_list = checkin_store.read_input_checkin_file()
