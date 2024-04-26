@@ -5,6 +5,7 @@ from uc3m_travel.hotel_management_config import JSON_FILES_PATH
 from uc3m_travel.hotel_management_exception import HotelManagementException
 from uc3m_travel.store.json_store_father import JsonStoreFather
 
+
 class JsonStoreCheckOut(JsonStoreFather):
     class __JsonStoreCheckOut(JsonStoreFather):
         _data_list = []
@@ -16,7 +17,8 @@ class JsonStoreCheckOut(JsonStoreFather):
                 if checkout["room_key"] == room_key:
                     raise HotelManagementException(self._error_message_find)
 
-            room_checkout = {"room_key":  room_key, "checkout_time":datetime.timestamp(datetime.utcnow())}
+            room_checkout = \
+                {"room_key":  room_key, "checkout_time": datetime.timestamp(datetime.utcnow())}
 
             room_key_list.append(room_checkout)
 
