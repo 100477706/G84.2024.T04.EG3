@@ -12,17 +12,6 @@ class HotelManager:
         def __init__(self):
             pass
 
-
-        def validate_roomkey(self, roomkey):
-            """validates the roomkey format using a regex"""
-            configuracion = r'^[a-fA-F0-9]{64}$'
-            myregex = re.compile(configuracion)
-            if not myregex.fullmatch(roomkey):
-                raise HotelManagementException("Invalid room key format")
-            return roomkey
-
-
-
         # pylint: disable=too-many-arguments
         def room_reservation(self,
                              credit_card:str,
@@ -56,7 +45,6 @@ class HotelManager:
 
         def guest_checkout(self, room_key: str)->bool:
             """manages the checkout of a guest"""
-            self.validate_roomkey(room_key)
             HotelDeparture.search_room_key_for_client(room_key)
             HotelDeparture.departure_for_client(room_key)
 
