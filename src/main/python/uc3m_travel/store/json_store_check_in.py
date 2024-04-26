@@ -31,7 +31,7 @@ class JsonStoreGuestArrival(JsonStoreFather):
         self._error_message_find = "ckeckin  ya realizado"
         super().find_item(value, key)
 
-    def read_input_checkout_file(self):
+    def read_input_checkin_file(self):
         try:
             with open(self._file_name, "r", encoding="utf-8", newline="") as file:
                 self._data_list = json.load(file)

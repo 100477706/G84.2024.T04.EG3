@@ -69,15 +69,17 @@ class HotelManager:
             """manages the checkout of a guest"""
             self.validate_roomkey(room_key)
             #check that the roomkey is stored in the checkins file
-            file_store = JSON_FILES_PATH + "store_check_in.json"
+            #file_store = JSON_FILES_PATH + "store_check_in.json"
 
-            checkout_store = JsonStoreGuestArrival()
+            checkin_store = JsonStoreGuestArrival()
             #room_key_list = self.read_input_checkout_file(file_store)
 
-            room_key_list = checkout_store.read_input_checkout_file()
+            room_key_list = checkin_store.read_input_checkin_file()
+
+            checkout_store = JsonStoreCheckOut()
 
             # comprobar que esa room_key es la que me han dado
-            departure_date_timestamp = self.find_in_list_checkout\
+            departure_date_timestamp = checkout_store.find_in_list_checkout\
                 (room_key, room_key_list)
 
             HotelDeparture(room_key).is_today_departure(departure_date_timestamp)
@@ -98,16 +100,16 @@ class HotelManager:
 
             return True
 
-        def read_input_checkout_file(self, file_store):
-            try:
-                with open(file_store, "r", encoding="utf-8", newline="") as file:
-                    room_key_list = json.load(file)
-            except FileNotFoundError as exception:
-                raise HotelManagementException("Error: store checkin not found") from exception
-            except json.JSONDecodeError as exception:
-                raise HotelManagementException(
-                    "JSON Decode Error - Wrong JSON Format") from exception
-            return room_key_list
+        # def read_input_checkout_file(self, file_store):
+        #     try:
+        #         with open(file_store, "r", encoding="utf-8", newline="") as file:
+        #             room_key_list = json.load(file)
+        #     except FileNotFoundError as exception:
+        #         raise HotelManagementException("Error: store checkin not found") from exception
+        #     except json.JSONDecodeError as exception:
+        #         raise HotelManagementException(
+        #             "JSON Decode Error - Wrong JSON Format") from exception
+        #     return room_key_list
 
         def IsGuestOut(self, room_key_list, room_key):
             for checkout in room_key_list:
