@@ -1,4 +1,3 @@
-import hashlib
 import json
 from uc3m_travel.hotel_management_exception import HotelManagementException
 
@@ -20,13 +19,6 @@ class JsonStoreFather:
             raise HotelManagementException("JSON Decode Error - Wrong JSON Format") from exception
         return self._data_list
 
-    # def find_item_in_store(self, my_reservation):
-    #     for item in self._data_list:
-    #         if my_reservation.localizer == item["_HotelReservation__localizer"]:
-    #             raise HotelManagementException("Reservation already exists")
-    #         if my_reservation.id_card == item["_HotelReservation__id_card"]:
-    #             raise HotelManagementException("This ID card has another reservation")
-
     def save_json_store(self, file_store):
         try:
             with open(file_store, "w", encoding="utf-8", newline="") as file:
@@ -43,9 +35,3 @@ class JsonStoreFather:
         for item in self._data_list:
             if value == item[key]:
                 raise HotelManagementException(self._error_message_find)
-
-
-    # @property
-    # def hash(self):
-    #     self.load_json_store()
-    #     return hashlib.md5(self.__str__().encode()).hexdigest()

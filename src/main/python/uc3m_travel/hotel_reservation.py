@@ -1,8 +1,6 @@
 """Hotel reservation class"""
 import hashlib
-import json
 from datetime import datetime
-import re
 from freezegun import freeze_time
 from uc3m_travel.hotel_management_exception import HotelManagementException
 from uc3m_travel.attribute.attribute_idcard import IdCard
