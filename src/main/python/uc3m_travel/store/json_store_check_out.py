@@ -1,3 +1,4 @@
+import json
 from datetime import datetime
 
 from uc3m_travel.hotel_management_config import JSON_FILES_PATH
@@ -28,6 +29,13 @@ class JsonStoreCheckOut(JsonStoreFather):
             if not found:
                 raise HotelManagementException("Error: room key not found")
             return departure_date_timestamp
+
+        def save_checkout(self, file_store_checkout, room_key_list):
+            try:
+                with open(file_store_checkout, "w", encoding="utf-8", newline="") as file:
+                    json.dump(room_key_list, file, indent=2)
+            except FileNotFoundError as exception:
+                raise HotelManagementException("Wrong file  or file path") from exception
 
     __instance = None
     def __new__(cls):

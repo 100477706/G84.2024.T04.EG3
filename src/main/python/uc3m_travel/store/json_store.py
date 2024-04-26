@@ -30,3 +30,4 @@ class JsonStore():
     def add_item_list(self, data_list, my_reservation):
         data_list.append(my_reservation.__dict__)
 
+
