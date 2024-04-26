@@ -68,19 +68,7 @@ class HotelManager:
         def guest_checkout(self, room_key: str)->bool:
             """manages the checkout of a guest"""
             self.validate_roomkey(room_key)
-            #check that the roomkey is stored in the checkins file
-            checkin_store = JsonStoreGuestArrival()
-
-            room_key_list = checkin_store.read_input_checkin_file()
-
-            checkout_store = JsonStoreCheckOut()
-
-            # comprobar que esa room_key es la que me han dado
-            departure_date_timestamp = checkout_store.find_in_list_checkout\
-                (room_key, room_key_list)
-
-            HotelDeparture(room_key).is_today_departure(departure_date_timestamp)
-
+            self.search_room_key_for_client(room_key)
 
             #### HACE UN FIND ####
             file_store_checkout = JSON_FILES_PATH + "store_check_out.json"
@@ -98,6 +86,16 @@ class HotelManager:
             save_list.save_json_store(file_store_checkout, room_key_list)
 
             return True
+
+        def search_room_key_for_client(self, room_key):
+            # check that the roomkey is stored in the checkins file
+            checkin_store = JsonStoreGuestArrival()
+            room_key_list = checkin_store.read_input_checkin_file()
+            checkout_store = JsonStoreCheckOut()
+            # comprobar que esa room_key es la que me han dado
+            departure_date_timestamp = checkout_store.find_in_list_checkout \
+                (room_key, room_key_list)
+            HotelDeparture(room_key).is_today_departure(departure_date_timestamp)
 
     __instance = None
 
